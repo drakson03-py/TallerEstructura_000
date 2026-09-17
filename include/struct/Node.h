@@ -1,9 +1,6 @@
-//
-// Created by seba2 on 04-09-2026.
-//
 
-#ifndef TALLER_1_NODE_H
-#define TALLER_1_NODE_H
+#ifndef TALLERESTRUCT_NODE_H
+#define TALLERESTRUCT_NODE_H
 template <class T>
 
 class Node {
@@ -22,5 +19,5 @@ public:
 
 };
 
-#include "struct/Node.tpp"
-#endif //TALLER_1_NODE_H
+#include "Node.tpp"
+#endif //TALLERESTRUCT_NODE_H

@@ -1,6 +1,4 @@
-//
-// Created by seba2 on 04-09-2026.
-//
+
 
 #include "Node.h"
 template <class T>

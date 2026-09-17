@@ -1,9 +1,6 @@
-//
-// Created by seba2 on 15-09-2026.
-//
 
-#ifndef TALLER_1_PACIENTE_H
-#define TALLER_1_PACIENTE_H
+#ifndef TALLERESTRUCT_PACIENTE_H
+#define TALLERESTRUCT_PACIENTE_H
 
 #include <iostream>
 using namespace std;
@@ -15,12 +12,7 @@ private:
     int edad;
     string servicio;
 public:
-    Paciente(
-        int id,
-        string nombre,
-        int edad,
-        string servicio
-        );
+    Paciente(int id,string nombre,int edad,string servicio);
 
     int getId();
     string getNombre();
@@ -29,4 +21,4 @@ public:
     ~Paciente();
 };
 
-#endif //TALLER_1_PACIENTE_H
+#endif //TALLERESTRUCT_PACIENTE_H

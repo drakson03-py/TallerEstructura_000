@@ -1,8 +1,5 @@
-//
-// Created by seba2 on 04-09-2026.
-//
 
-#include "struct/List.h"
+#include "List.h"
 
 template<class T>
 List<T>::List() {

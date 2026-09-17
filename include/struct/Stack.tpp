@@ -1,6 +1,4 @@
-//
-// Created by seba2 on 05-09-2026.
-//
+
 
 #include "Stack.h"
 

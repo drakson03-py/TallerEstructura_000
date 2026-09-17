@@ -1,9 +1,7 @@
-//
-// Created by seba2 on 05-09-2026.
-//
 
-#ifndef TALLER_1_STACK_H
-#define TALLER_1_STACK_H
+
+#ifndef TALLERESTRUCT_STACK_H
+#define TALLERESTRUCT_STACK_H
 #include "Node.h"
 
 template <class T>
@@ -21,5 +19,5 @@ public:
     ~Stack();
 };
 
-#include "struct/Stack.tpp"
-#endif //TALLER_1_STACK_H
+#include "Stack.tpp"
+#endif //TALLERESTRUCT_STACK_H

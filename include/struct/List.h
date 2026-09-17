@@ -1,9 +1,6 @@
-//
-// Created by seba2 on 04-09-2026.
-//
 
-#ifndef TALLER_1_LIST_H
-#define TALLER_1_LIST_H
+#ifndef TALLERESTRUCT_LIST_H
+#define TALLERESTRUCT_LIST_H
 #include "Node.h"
 
 template <class T>
@@ -25,4 +22,4 @@ public:
 };
 
 #include "List.tpp"
-#endif //TALLER_1_LIST_H
+#endif //TALLERESTRUCT_LIST_H
