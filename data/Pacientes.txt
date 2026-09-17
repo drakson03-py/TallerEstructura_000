@@ -3,4 +3,5 @@
 003;Pedro Rojas;43;Cirugia
 004;Ana Torres;12;Pediatria
 005;Luis Diaz;31;Traumatologia
-006;Javier Gonzales;1;Traumatologia;
+006;Javier Gonzales;1;Traumatologia
+000;Luis Diaz;31;Traumatologia

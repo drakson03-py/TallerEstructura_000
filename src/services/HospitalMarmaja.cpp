@@ -31,18 +31,19 @@ const string lista[( n )] = {
 const string* ptr = lista;
 const string separador= "------------------------------------------";
 
-void HospitalMarmaja::cargaDePacientes() {
-    filesystem::path data_dir = DATA_DIR;
+bool HospitalMarmaja::cargaDePacientes() {
+    filesystem::path data_dir = DATA_DIR;//Direccion de la carpeta data
 
-    ifstream archivo(data_dir / this ->archivo);
+    ifstream archivo(data_dir / this ->archivo);//Accede al archivo de la carpeta data
     if (!archivo.is_open()) {
         cout << "ERROR: No se pudo abrir el archivo" << endl;
-        exit(0);
+        return false;
     }
     string linea;
-    while (getline(archivo, linea)) {
-        stringstream ss(linea);
+    while (getline(archivo, linea)) {//Lee el archivo
+        stringstream ss(linea);//Lee una linea
 
+        //Atributos del paciente
         string str_id;
         int id;
         string nombre;
@@ -50,35 +51,33 @@ void HospitalMarmaja::cargaDePacientes() {
         int edad;
         string servicio;
 
-        string lineaNoValida;
+        string lineaNoValida;//Recoge el resto de la linea
 
         getline(ss, str_id, ';');
         getline(ss, nombre, ';');
         getline(ss, str_edad, ';');
         getline(ss, servicio, ';');
         getline(ss,lineaNoValida);
+
+        //Validacion de los datos de la linea del archivo
         if (lineaNoValida != "") {
             cout << "ERROR: El archivo contiene datos no validos";
             cout<<"  ->Linea con argumentos no validos  ";
-            exit(0);
+            return false;
         }
-
-        try {
-            id = stoi(str_id);
-            edad = stoi(str_edad);
-            if (id < 0 || edad <=0) {
+        string cadena = str_id +str_edad;
+        for (char c : cadena) {//Validacion del datos numericos
+            if (!isdigit(c)) {
                 cout << "ERROR: El archivo contiene datos no validos";
                 cout<<"  ->Id o Edad no valida  ";
-                exit(0);
+                return false;
             }
-        }catch (...) {
-            cout << "ERROR: El archivo contiene datos no validos";
-            cout << "  ->Id o Edad no valida  ";
-            exit(0);
         }
+        id = stoi(str_id);
+        edad = stoi(str_edad);
 
         bool noValido = true;
-        for (int i = 0; i < n; i++ ) {
+        for (int i = 0; i < n; i++ ) {//Validacion del servicio
             if ( *ptr == servicio) {
                 noValido = false;
                 break;
@@ -90,17 +89,18 @@ void HospitalMarmaja::cargaDePacientes() {
         if (noValido) {
             cout << "ERROR: El archivo contiene datos no validos";
             cout<<"  -> Servicio  ";
-            exit(0);
+            return false;
         }
-        if (pacienteRepetido(id)) {
+        if (pacienteRepetido(id)) {//Validacion de paciente unico
             cout << "ERROR: El archivo contiene mas de 1 paciente con el mismo ID";
-            exit(0);
+            return false;
         }
-        Paciente* p = new Paciente(id,nombre,edad,servicio);
-        datos->insertLast(p);
-        fila->push(p);
+        Paciente* p = new Paciente(id,nombre,edad,servicio);//Se construye el paciente
+        datos->insertLast(p);//Se inserta en la lista de pacientes
+        fila->push(p);//Se agrega a la fila
     }
     archivo.close();
+    return true;
 
 }
 
@@ -108,7 +108,7 @@ void HospitalMarmaja::verDepartamento() {
     cout <<"====== Departamentos ======";
     int i = 1;
     ptr = lista;
-    while (ptr < lista + n) {
+    while (ptr < lista + n) {//Muestra los departamentos
         cout<<endl
         <<i<<". "<<*ptr;
         ptr++;
@@ -117,17 +117,18 @@ void HospitalMarmaja::verDepartamento() {
 
     string opcion = "";
     cout<<endl<<endl<<"Seleccione una opcion: ";
-    cin>>opcion;
+    cin>>opcion;//Pide al usuario una entrada
     ptr = lista;
-    while (ptr < lista + n) {
-        if (opcion == to_string(ptr-lista + 1)) {
-            if (departamentos->get(ptr-lista)->isEmpty()) {
+    while (ptr < lista + n) {//Valida si la entrada es valida
+        if (opcion == to_string(ptr-lista + 1)) {//Compara la entrada con la posicion en la lista + 1
+
+            if (departamentos->get(ptr-lista)->isEmpty()) {//Pregunta si la lista enlazada tiene pacientes en la posicion paralela a la lista
                 cout<<"Aun no hay pacientes atendidos en este departamento.."<<endl;
                 return;
             }
             int aux = 0;
             cout<<endl<<"====== Departamento de "<< *ptr<< " ======" << endl;
-            while (true) {
+            while (true) {//Muestra los pacientes correspondientes al departamento seleccionado
                 try {
                     imprimirPaciente(departamentos->get(ptr-lista)->get(aux),"departamentos");
                     cout<<endl;
@@ -138,7 +139,6 @@ void HospitalMarmaja::verDepartamento() {
                     return;
                 }
             }
-
         }
         ptr++;
     }
@@ -147,40 +147,41 @@ void HospitalMarmaja::verDepartamento() {
 
 void HospitalMarmaja::atenderPacientes() {
     cout<<"======= Atendiendo Pacientes =======";
-    if (fila->empty()) {
+    if (fila->empty()) {//Pregunta si la fila esta vacia
         cout <<endl<< "NO hay pacientes por atender..";
         return;
     }
-    Queue<Paciente*>* aux = new Queue<Paciente*>();
+    Queue<Paciente*>* copy = new Queue<Paciente*>( *fila);//Se crea una copia de la fila
     int i = 1;
-    while (!fila->empty()) {
-        cout << endl <<i << ".  "; imprimirPaciente(fila->front(), "atender");
-        aux -> push(fila->front());
-        fila->pop();
+    while (!copy->empty()) {
+        cout << endl <<i << ".  "; imprimirPaciente(copy->front(), "atender");
+        copy->pop();
         i++;
     }
-    delete fila;
-    fila = aux;
+    delete copy;
+
 
     string str_cantidad = "";
     int cantidad;
     cout << endl << endl<<"Ingrese la cantidad de pacientes a atender: ";
-    cin >> str_cantidad;
-    try {
-        cantidad = stoi(str_cantidad);
-        if (cantidad <= 0) {
+    cin >> str_cantidad;//Pide al usuario una entrada
+
+    for (char c:str_cantidad) {//Valida la entrada
+        if (!isdigit(c)) {
             cout<<"ERROR: Ingrese una cantidad valida"<<endl;
             return;
         }
-
-    }catch (...) {
-        cout<<"ERROR: Ingrese una cantidad valida"<<endl;
+    }
+    cantidad = stoi(str_cantidad);
+    if (cantidad == 0) {
+        cout<< endl<<"No se han atendido pacientes..."<<endl;
         return;
     }
+
     cout<<"Pacientes atendidos...";
     cout <<endl<< separador;
-    for (int i = 0; i < cantidad; i++) {
-        if (fila->empty()) {
+    for (int i = 0; i < cantidad; i++) {//Atiende los pacientes
+        if (fila->empty()) {//Pregunta si la fila esta vacia
             cout<<endl<<"Se han atendido todos los pacientes disponibles.."<<endl;
             return;
         }
@@ -188,11 +189,11 @@ void HospitalMarmaja::atenderPacientes() {
         imprimirPaciente(fila->front(),"atendido");
         cout << endl<<separador;
 
-        historial->push(fila->front());
+        historial->push(fila->front());//Se guarda el paciente en el historial
         ptr = lista;
-        while (ptr < lista + n) {
-            if (*ptr == fila->front()->getServicio()) {
-                 departamentos->get(ptr - lista)->insertLast(fila->front());
+        while (ptr < lista + n) {//Se deriva al departamento correspondiente
+            if (*ptr == fila->front()->getServicio()) {//Compara el servicio con los departamentos
+                 departamentos->get(ptr - lista)->insertLast(fila->front());//Inserta el paciente en el departamento correspondiente
                 break;
             }
             ptr++;
@@ -204,45 +205,39 @@ void HospitalMarmaja::atenderPacientes() {
 
 }
 
+
 void HospitalMarmaja::revisarHistorialDeAtencion() {
-    if (historial->empty()) {
+    if (historial->empty()) {//Pregunta si el historial esta vacio
         cout<<"No hay pacientes atendidos todavia..."<<endl;
         return;
     }
     cout<<"====== Historial de pacientes atendidos ======"<<endl;
-    Stack<Paciente*>* aux = new Stack<Paciente*>();
-    while (!historial->empty()) {
-        imprimirPaciente(historial->top(),"historial");
+    Stack<Paciente*>* copy = new Stack(*historial);
+    while (!copy->empty()) {//Muestra el historial de pacientes atendidos
+        imprimirPaciente(copy->top(),"historial");
         cout<<endl;
-        aux->push(historial->top());
-        historial->pop();
+        copy->pop();
     }
-    while (!aux->empty()) {
-        historial->push(aux->top());
-        aux->pop();
-    }
-    delete aux;
+
+    delete copy;
     cout<<separador<<endl;
 }
 
-void HospitalMarmaja::finalizar() {
+HospitalMarmaja::~HospitalMarmaja() {
     int aux = 0;
-    while (true) {
+    while (true) {//Recorre toda la lista de pacientes
         try {
-            delete datos->get(aux);
+            delete datos->get(aux);//Destruye los pacientes
             aux++;
         }catch (...) {
             break;
         }
     }
     delete datos;
-    cout<<"--> Cerrando programa...";
-}
-
-HospitalMarmaja::~HospitalMarmaja() {
     delete fila;
     delete historial;
     delete departamentos;
+
 }
 string HospitalMarmaja::idString(int id) {
     string cero = "";

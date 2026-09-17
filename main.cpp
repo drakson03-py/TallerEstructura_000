@@ -3,13 +3,21 @@
 
 
 using namespace std;
+/**
+ * Crea una instancia del Hospital Marmaja, carga los pacientes
+ * y muestra un menú para acceder a las distintas funciones del sistema
+ *
+ * @return 0 si el programa finaliza correctamente, 1 en caso contrario
+ */
 int main() {
 
     string archivo = "Pacientes.txt";
 
     System* hospital = new HospitalMarmaja(archivo);
-    hospital->cargaDePacientes();
-    while (true) {
+
+    bool valido = hospital->cargaDePacientes();
+
+    while (valido) {
         cout<<endl
         << "======= Hospital Marmaja ======="<<endl
         << "1. Atender pacientes" << endl
@@ -20,7 +28,6 @@ int main() {
         string opcion = "";
         cout << endl << "Seleccione una opcion: ";
         cin >> opcion;
-
 
         if (opcion == "1") {
             hospital -> atenderPacientes();
@@ -33,13 +40,13 @@ int main() {
             hospital ->revisarHistorialDeAtencion();
 
         }else if (opcion == "4") {
-            hospital -> finalizar();
-            delete hospital;
+            cout<<endl<<"Finalizando programa...";
             break;
 
         }else {
             cout << endl<< "ERROR: Seleccione una opcion valida" << endl;
         }
     }
-    return 0;
+    delete hospital;
+    return (valido ? 0:1);
 }

@@ -17,6 +17,8 @@ add_executable(TallerEstruct main.cpp
         include/services/System.h
         include/services/Services.h
 )
+
+#Se crea una variable que guarda la ruta relativa de la carpeta data
 target_compile_definitions(TallerEstruct PRIVATE
         DATA_DIR="${CMAKE_SOURCE_DIR}/data"
 )

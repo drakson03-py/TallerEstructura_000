@@ -6,7 +6,15 @@ template<class T>
 Stack<T>::Stack() {
     this->last = nullptr;
 }
-
+template <class T>
+Stack<T>::Stack(const Stack& s) {
+    this->last = nullptr;
+    Node<T>* n = s.last;
+    while (n) {
+        this->push(n->getValue());
+        n=n->getNext();
+    }
+}
 template<class T>
 bool Stack<T>::empty() {
     return !this->last;

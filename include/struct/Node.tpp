@@ -2,8 +2,7 @@
 
 #include "Node.h"
 template <class T>
-Node<T>::Node(T value) {
-    this -> value = value;
+Node<T>::Node(T value):value(value) {
     this -> next = nullptr;
 }
 template <class T>

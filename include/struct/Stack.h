@@ -10,6 +10,7 @@ private:
     Node<T>* last;
 public:
     Stack();
+    Stack(const Stack& s);
     bool empty();
     void push(T value);
     void pop();

@@ -9,6 +9,7 @@ private:
     Node<T>* first;
 public:
     Queue();
+    Queue(const Queue& q);
     bool empty();
     void push(T value);
     void pop();

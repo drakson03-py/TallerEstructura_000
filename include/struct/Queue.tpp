@@ -7,6 +7,16 @@ Queue<T>::Queue() {
 }
 
 template<class T>
+Queue<T>::Queue(const Queue& q) {
+    this-> first = nullptr;
+    Node<T>* cur = q.first;
+    while (cur) {
+        this->push(cur->getValue());
+        cur = cur->getNext();
+    }
+}
+
+template<class T>
 bool Queue<T>::empty() {
     return !this -> first;
 }

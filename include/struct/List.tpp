@@ -3,7 +3,7 @@
 
 template<class T>
 List<T>::List() {
-    this -> start = nullptr;
+    this -> start = nullptr;//Reserva memoria
 }
 
 template<class T>
