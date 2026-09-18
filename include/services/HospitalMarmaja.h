@@ -16,10 +16,10 @@ using namespace std;
  */
 class HospitalMarmaja: public System {
 private:
-    List<Paciente*>* datos; ///< Lista que almacena los punteros a los pacientes guardados
-    Queue<Paciente*>* fila; ///< Cola que almacena los pacientes pendientes en atender
-    Stack<Paciente*>* historial; ///< Pila que almacena los pacientes atendidos
-    List<List<Paciente*>*>* departamentos; ///< Lista que contiene los pacientes atendidos en cada departamento
+    List<Paciente*>* datos; /**< Lista que almacena los punteros a los pacientes  */
+    Queue<Paciente*>* fila; /**< Cola que almacena los pacientes pendientes en atender */
+    Stack<Paciente*>* historial; /**< Pila que almacena los pacientes atendidos */
+    List<List<Paciente*>*>* departamentos; /**< Lista que contiene los pacientes atendidos en cada departamento */
 public:
 
     /**

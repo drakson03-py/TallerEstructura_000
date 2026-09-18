@@ -9,7 +9,7 @@ using namespace std;
  */
 class System {
 protected:
-    string archivo; ///< Nombre del archivo de texto utilizado por el sistema
+    string archivo; /**< Nombre del archivo de texto utilizado por el sistema */
 public:
 
     /**

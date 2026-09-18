@@ -12,12 +12,12 @@ HospitalMarmaja::HospitalMarmaja(string archivo) : System(archivo)  {
     this -> fila = new Queue<Paciente*>();
     this -> historial = new Stack<Paciente*>();
     this -> departamentos = new List<List<Paciente*>*>();
-    for (int i = 0; i<( 8 ); i++) {
+    for (int i = 0; i<( 8 ); i++) {//Se crean y agregan 8 listas vacías para almacenar punteros a pacientes
         List<Paciente*>* value = new List<Paciente*>();
         departamentos->insertLast(value);
     }
 }
-const int n = 8;
+const int n = ( 8 ) ;
 const string lista[( n )] = {
     "Urgencias"
     ,"Medicina General"
@@ -60,21 +60,43 @@ bool HospitalMarmaja::cargaDePacientes() {
         getline(ss,lineaNoValida);
 
         //Validacion de los datos de la linea del archivo
+
         if (lineaNoValida != "") {
             cout << "ERROR: El archivo contiene datos no validos";
             cout<<"  ->Linea con argumentos no validos  ";
             return false;
         }
-        string cadena = str_id +str_edad;
-        for (char c : cadena) {//Validacion del datos numericos
+
+        for (char c : str_id) {//Validacion de id
             if (!isdigit(c)) {
                 cout << "ERROR: El archivo contiene datos no validos";
-                cout<<"  ->Id o Edad no valida  ";
+                cout<<"  ->Id No valido  ";
                 return false;
             }
         }
-        id = stoi(str_id);
-        edad = stoi(str_edad);
+
+        for (char c : str_edad) {//Validacion de edad
+            if (!isdigit(c)) {
+                cout << "ERROR: El archivo contiene datos no validos";
+                cout<<"  ->Edad No valido  ";
+                return false;
+            }
+        }
+
+        try {
+            id = stoi(str_id);
+            edad = stoi(str_edad);
+        }catch (...) {
+            cout << "ERROR: El archivo contiene datos no validos";
+            cout<<"  ->Edad o id no valido ";
+            return false;
+        }
+
+        if (edad == 0) {
+            cout << "ERROR: El archivo contiene datos no validos";
+            cout<<"  ->Edad No valido  ";
+            return false;
+        }
 
         bool noValido = true;
         for (int i = 0; i < n; i++ ) {//Validacion del servicio
@@ -202,7 +224,6 @@ void HospitalMarmaja::atenderPacientes() {
         fila->pop();
     }
     cout<<endl;
-
 }
 
 
