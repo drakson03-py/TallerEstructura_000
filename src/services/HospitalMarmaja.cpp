@@ -60,6 +60,19 @@ bool HospitalMarmaja::cargaDePacientes() {
         getline(ss,lineaNoValida);
 
         //Validacion de los datos de la linea del archivo
+        int espacio = 0;
+        int size = 0;
+        for (char c :nombre) {
+            if (c == ' ') {
+                espacio++;
+            }
+            size++;
+        }
+        if (espacio == size|| nombre.empty()) {
+            cout << "ERROR: El archivo contiene datos no validos";
+            cout<<"  ->Nombre vacio";
+            return false;
+        }
 
         if (lineaNoValida != "") {
             cout << "ERROR: El archivo contiene datos no validos";

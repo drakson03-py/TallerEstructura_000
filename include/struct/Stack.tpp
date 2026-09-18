@@ -15,6 +15,7 @@ Stack<T>::Stack(const Stack& s) {
         n=n->getNext();
     }
 }
+
 template<class T>
 bool Stack<T>::empty() {
     return !this->last;
