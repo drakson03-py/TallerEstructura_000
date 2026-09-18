@@ -47,7 +47,11 @@ public:
      */
     virtual void revisarHistorialDeAtencion() = 0;
 
+    /**
+     * Permite buscar un paciente por su id y mostrarlo
+     */
     virtual void buscarPaciente() = 0;
+
     /**
      * Destructor de la clase
      */

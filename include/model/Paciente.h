@@ -17,7 +17,7 @@ private:
     string servicio;
 public:
     /**
-     *
+     * Constructor
      * @param id Variable tipo int que almacena su numero tipo unico identificador
      * @param nombre Variable tipo string que almacena el nombre del individuo
      * @param edad  Variable tipo int que almacena el nombre del individuo
@@ -26,30 +26,31 @@ public:
     Paciente(int id,string nombre,int edad,string servicio);
 
     /**
-     *
-     * @return retorna el id del paciente.
+     * Devuelve el identificador del paciente
+     * @return Id del paciente.
      */
     int getId();
 
     /**
-     *
-     * @return retorna el nombre afiliado al paciente
+     * Devuelve el nombre del paciente
+     * @return Nombre afiliado al paciente
      */
     string getNombre();
 
     /**
-     *
-     * @return retorna la edad afiliada al paciente
+     * Devuelve la edad del paciente
+     * @return Edad afiliada al paciente
      */
     int getEdad();
 
     /**
-     *
-     * @return retorna la especialidad a donde se debe o fue derivado el paciente.
+     * Devuelve el servicio del paciente
+     * @return Servicio del paciente
      */
     string getServicio();
+
     /**
-     * Destructor de la clase
+     * Destructor
      */
     ~Paciente();
 };

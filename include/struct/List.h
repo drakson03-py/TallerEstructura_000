@@ -3,74 +3,84 @@
 #define TALLERESTRUCT_LIST_H
 #include "Node.h"
 
-template <class T>
-
 /**
-     * Clase "List" implementacion de la EDD Lista enlazada generica para el manejo dinamico de datos.
-     * T Tipo de dato que almacena la lista.
-     */
+ * Implementación de una lista enlazada genérica
+ * para el manejo dinámico de datos
+ * @tparam T Tipo de dato que almacena la lista
+ */
+template <class T>
 class List {
 private:
     /**
-     *Variable de tipo puntero que almacena el inicio de la lista de tipo generico.
+     *Variable de tipo puntero que almacena el inicio de la lista
      */
     Node<T>* start;
-public:
-    ///
-    List();
-    /**
-     * Metodo que devuelve un booleano para saber si la lista esta vacia o no (True si, False no)
-     */
 
+public:
+    /**
+     * Constructor
+     */
+    List();
+
+    /**
+     *Verifica si la lista esta vacia
+     *@return true si la lista esta vacia, false si no lo esta
+     */
     bool isEmpty();
+
     /**
-    * Metodo que inserta un elemento en la posicion (index) especifica de la lista
-    */
+     * Inserta un elemento en una posicion
+     * @param value Elemento que se quiere insertar
+     * @param index Posicion que en la que se quiere insertar
+     */
     void insert(T value, int index);
+
     /**
-     * Inserta un nuevo elemento en la primera posición de la lista (cabeza o índice 0).
-     * Si ya existe un elemento en dicha posición, los elementos actuales se desplazan una posición hacia adelante para ceder el lugar al nuevo nodo.
+     * Inserta un elemento en la primera posición de la lista
+     * @param value Elemento que se quiere insertar
      */
     void insertFirst(T value);
+
     /**
-     *Inserta un nuevo elemento en la ULTIMA posición de la lista.
+     * Inserta un nuevo elemento en la ultima posición de la lista
+     * @param value Elemento que se quiere insertar
      */
     void insertLast(T value);
 
     /**
-     *
-     * @param index variable tipo int que representa la posicion dentro de la lista.
-     * @return Devuelve el nodo que esta contenida en la lista en la posicion INDEX.
+     * Devuelve el elemento de la posicion indicada
+     * @param index Posicion dentro de la lista
+     * @return Devuelve un elemento generico T
      */
     T get(int index);
 
     /**
-     *
-     * @return Retorna el nodo situado en la primera lista
+     * Devuelve el primer elemento de la lista
+     * @return Elemento generico T
      */
     T getFirst();
 
     /**
-     *
-     * @return Retorna el ultimo nodo situado en la lista.
+     * Devuelve el ultimo elemento de la lista
+     * @return Elemento generico T
      */
     T getLast();
 
     /**
-     *
-     * Elimina el nodo situado en la posicion INDEX y reconecta sus nodos adyacentes
-     *
+     * Remueve de la lista el elemento en la posicion indicada
+     * @param index Posicion dentro de la lista
      */
     void remove(int index);
+
     /**
-     * Elimina todos los punteros dentro de la lista dejandola vacia.
+     * Elimina todos los elementos de la lista
      */
     void clear();
 
     /**
-     * Desestructor
+     * Destructor
      */
-    ~ List();
+    ~List();
 };
 
 #include "List.tpp"

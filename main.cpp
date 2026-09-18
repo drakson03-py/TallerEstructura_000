@@ -36,7 +36,6 @@ int main() {
         }else if (opcion == "2") {
             hospital -> verDepartamento();
 
-
         }else if (opcion == "3") {
             hospital ->revisarHistorialDeAtencion();
 
@@ -46,7 +45,6 @@ int main() {
 
         }
         else if (opcion == "0"){
-            cout<<"ID de paciente a buscar: "<<endl;
             hospital -> buscarPaciente();
         }
         else {

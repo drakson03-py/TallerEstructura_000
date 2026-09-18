@@ -5,14 +5,14 @@
 #include "Node.h"
 
 /**
-     * Clase "Stack" implementacion de la EDD pila(Stack) de tipo LIFO(Last in first out)
-     */
-
+ * Implementación de una pila genérica de tipo LIFO
+ * @tparam T
+ */
 template <class T>
 class Stack {
 private:
     /**
-     * Variable tipo Puntero hacia la base de la pila
+     * Puntero que almacena la dirección del ultimo nodo insertado
      */
     Node<T>* last;
 public:
@@ -20,41 +20,52 @@ public:
      * Constructor
      */
     Stack();
+
+    /**
+     * Constructor copia de la pila
+     * @param s Pila que se quiere copiar
+     */
     Stack(const Stack& s);
 
     /**
-     *
-     * @return
+     * Verifica si la pila está vaia
+     * @return true si la pila está vacía, false si tiene elementos
      */
     bool empty();
 
     /**
-     *
-     * Agrega a value al cabezal de la pila .
+     * Inserta un elemento en la cabeza de la pila
+     * @param value Elemento que se quiere insertar
      */
     void push(T value);
 
     /**
-     * Elimina el cabezal de la pila, en caso de haber mas datos el dato last se convertira en el nuevo cabezal
+     * Elimina el elemento de la cabeza de la pila
+     *
+     * El siguiente pasa a ser la nueva cabeza
      */
     void pop();
 
     /**
-     *
-     * @return retorna el dato T que esta almacenado al final del stack
+     * Devuelve el elemento ubicado en la cabeza de la pila
+     * @return Elemento de tipo generico T
      */
     T top();
 
     /**
-     * Elimina todos los datos almacenados en la pila.
+     * Elimina todos los elementos de la pila
      */
     void clear();
 
     /**
-     *
-     * @return retorna la cantidad de datos almacenados en la pila.
+     * Devuelve la cantidad de elementos almacenados en la pila
+     * @return Cantidad de elementos
      */
     int size();
+
+    /**
+     * Destructor
+     */
     ~Stack();
 };
 

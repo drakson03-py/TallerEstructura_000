@@ -3,17 +3,19 @@
 #define TALLERESTRUCT_QUEUE_H
 #include "Node.h"
 
-/**
-     * Clase "Queue" implementacion de la EDD cola(Queue) de tipo FIFO(First in first out)
-     */
 
+/**
+ * Implementación de una cola genérica de tipo FIFO
+ * @tparam T Tipo de dato que almacena la lista
+ */
 template <class T>
 class Queue {
 private:
     /**
-     * Variable tipo Puntero hacia el primer elemento de la cola
+     * Puntero que almacena la dirección del primer nodo de la cola
      */
     Node<T>* first;
+
 public:
     /**
      * Constructor
@@ -21,41 +23,44 @@ public:
     Queue();
 
     /**
-     * Constructor copia
+     * Constructor copia de la cola
+     * @param q Cola que se quiere copiar
      */
     Queue(const Queue& q);
 
     /**
-     *
-     * @return Retorna True si la cola esta vacia y False si contiene algun dato
+     * Verifica si la cola está vacia
+     * @return true si la cola esta vacia y false si contiene algun dato
      */
     bool empty();
 
     /**
-     *
-     * Inserta el dato tipo T(Generico) al final de la fila.
+     * Inserta un elemento al final de la cola
+     * @param value Elemento que se quiere insertar
      */
     void push(T value);
 
     /**
-     * Elimina el primer dato de la cola y convierte el next en el primer dato.
+     * Elimina el primer elemento de la cola
+     *
+     * El siguiente elemento pasa a ser el primero
      */
     void pop();
 
     /**
-     *
-     * @return retorna el primer dato de la cola
+     * Devuelve el primer elemento de la cola
+     * @return Elemento de tipo genérico T
      */
     T front();
 
     /**
-     * Elimina todas las referencias o datos de la cola
+     * Elimina todos los elementos de la cola
      */
     void clear();
 
     /**
-     *
-     * @return retorna la cantidad de datos almacenados en la cola
+     * Devuelve la cantidad de elementos almacenados en la cola
+     * @return Cantidad de elementos
      */
     int size();
 

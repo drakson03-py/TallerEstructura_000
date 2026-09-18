@@ -2,45 +2,52 @@
 #ifndef TALLERESTRUCT_NODE_H
 #define TALLERESTRUCT_NODE_H
 
-/**
-     * Clase "Node" representa un nodo individual para almacenar datos de forma enlazada
-     */
-/**
-     * T tipo de dato que almacenara el nodo
-     */
-template <class T>
 
+
+/**
+ * Implementacion de un nodo generico para almacenar datos
+ * @tparam T Tipo de dato que almacena la lista
+ */
+template <class T>
 class Node {
 private:
     /**
-     * T Valor almacenado de tipo generico
+     * Variable que almacena el dato de tipo genérico
      */
     T value;
+
     /**
-     * Variable tipo Puntero hacia el siguiente nodo
+     * Puntero que almacena la dirección del siguiente nodo
      */
     Node<T>* next;
 public:
+    /**
+     * Constructor del nodo
+     * @param value Dato que se quiere almacenar en el nodo
+     */
     Node(T value);
 
     /**
-     *
-     * @return retorna el dato contenido en la variable tipo generico value.
+     * Devuelve el dato almacenado en el nodo
+     * @return Dato de tipo genérico T
      */
     T getValue();
+
+    /**
+     * Devuelve el siguiente nodo
+     * @return Puntero al siguiente nodo
+     */
     Node<T>* getNext();
 
     /**
-     *
-     * @param next variable tipo puntero que guarda la referencia a un nodo
-     * Guarda el nodo insertado next en la variable next del nodo mismo.
+     * Establece el siguiente nodo
+     * @param next Puntero al nodo que se quiere enlazar
      */
     void setNext(Node<T>* next);
 
     /**
-     *
-     * @param value Dato tipo generico para insertar.
-     * Inserta la variable value en la variable value del nodo mismo.
+     * Modifica el elemento del nodo
+     * @param value Nuevo elemento que se quiere almacenar
      */
     void setValue(T value);
 
@@ -48,7 +55,6 @@ public:
      * Destructor de la clase
      */
     ~Node();
-
 };
 
 #include "Node.tpp"
