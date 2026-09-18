@@ -112,6 +112,7 @@ void List<T>::clear() {
     }
 }
 
+
 template<class T>
 List<T>::~List() {
     this -> clear();

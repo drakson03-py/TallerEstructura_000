@@ -11,7 +11,6 @@ class System {
 protected:
     string archivo; /**< Nombre del archivo de texto utilizado por el sistema */
 public:
-
     /**
      * Constructor de la clase
      * @param archivo Archivo de datos utilizado por el sistema
@@ -48,10 +47,12 @@ public:
      */
     virtual void revisarHistorialDeAtencion() = 0;
 
+    virtual void buscarPaciente() = 0;
     /**
      * Destructor de la clase
      */
     virtual ~System() = default;
+
 };
 
 #endif //TALLERESTRUCT_SYSTEM_H

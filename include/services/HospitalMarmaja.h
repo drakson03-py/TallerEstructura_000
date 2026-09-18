@@ -61,7 +61,10 @@ public:
      * @return true si el identificador está repetido, false en caso contrario
      */
     bool pacienteRepetido(int id);//s
+
+    void buscarPaciente();
 };
+
 
 
 #endif //TALLERESTRUCT_HOSPITALMARMAJA_H

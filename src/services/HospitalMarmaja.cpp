@@ -60,6 +60,7 @@ bool HospitalMarmaja::cargaDePacientes() {
         getline(ss,lineaNoValida);
 
         //Validacion de los datos de la linea del archivo
+
         int espacio = 0;
         int size = 0;
         for (char c :nombre) {
@@ -308,6 +309,14 @@ void HospitalMarmaja::imprimirPaciente(Paciente* p, string forma) {
         << "Nombre: " << p->getNombre()
         <<" ("<<p->getEdad()<< ")";
     }
+    else if (forma == "todo") {
+        cout
+        << "ID: " <<id <<endl
+        << "Nombre: " << p->getNombre() << endl
+        << "Edad: " << p->getEdad()<<endl
+        << "Servicio: " << p->getServicio() << endl
+       ;
+    }
 }
 
 bool HospitalMarmaja::pacienteRepetido(int id) {
@@ -323,4 +332,28 @@ bool HospitalMarmaja::pacienteRepetido(int id) {
             return false;
         }
     }
+}
+
+void HospitalMarmaja::buscarPaciente() {
+    string id_str = "";
+    int id;
+    try {
+        cin>>id_str;
+        id = stoi(id_str);
+    }catch (...) {
+        cout<< "ERROR: Paciente no encontrado o ID invalido"<<endl;
+        return;
+    }
+    int contador= 0;
+    try{
+    while (true) {
+        Paciente* paciente = datos->get(contador);
+        if (paciente->getId() == id) {
+            imprimirPaciente(paciente,"todo");
+            return;
+        }
+        contador++;
+    }
+}catch (...){}
+    cout<<"Error: Paciente no encontrado"<<endl;
 }

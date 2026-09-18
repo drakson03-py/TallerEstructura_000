@@ -20,6 +20,7 @@ int main() {
     while (valido) {
         cout<<endl
         << "======= Hospital Marmaja ======="<<endl
+        << "0. Buscar paciente" << endl
         << "1. Atender pacientes" << endl
         << "2. Ver departamentos" << endl
         << "3. Revisar historial de atencion" << endl
@@ -43,7 +44,12 @@ int main() {
             cout<<endl<<"Finalizando programa...";
             break;
 
-        }else {
+        }
+        else if (opcion == "0"){
+            cout<<"ID de paciente a buscar: "<<endl;
+            hospital -> buscarPaciente();
+        }
+        else {
             cout << endl<< "ERROR: Seleccione una opcion valida" << endl;
         }
     }
