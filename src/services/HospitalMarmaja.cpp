@@ -17,6 +17,7 @@ HospitalMarmaja::HospitalMarmaja(string archivo) : System(archivo)  {
         departamentos->insertLast(value);
     }
 }
+
 const int n = ( 8 ) ;
 const string lista[( n )] = {
     "Urgencias"
@@ -58,7 +59,6 @@ bool HospitalMarmaja::cargaDePacientes() {
         getline(ss, str_edad, ';');
         getline(ss, servicio, ';');
         getline(ss,lineaNoValida);
-
         //Validacion de los datos de la linea del archivo
 
         int espacio = 0;
@@ -137,7 +137,6 @@ bool HospitalMarmaja::cargaDePacientes() {
     }
     archivo.close();
     return true;
-
 }
 
 void HospitalMarmaja::verDepartamento() {
@@ -240,7 +239,6 @@ void HospitalMarmaja::atenderPacientes() {
     cout<<endl;
 }
 
-
 void HospitalMarmaja::revisarHistorialDeAtencion() {
     if (historial->empty()) {//Pregunta si el historial esta vacio
         cout<<"No hay pacientes atendidos todavia..."<<endl;
@@ -274,6 +272,7 @@ HospitalMarmaja::~HospitalMarmaja() {
     delete departamentos;
 
 }
+
 string HospitalMarmaja::idString(int id) {
     string cero = "";
     if (id - 10 < 0) {
@@ -283,6 +282,7 @@ string HospitalMarmaja::idString(int id) {
     }
     return cero + to_string(id);
 }
+
 void HospitalMarmaja::imprimirPaciente(Paciente* p, string forma) {
     string id = idString(p->getId());
     if (forma == "atender"){
@@ -308,8 +308,7 @@ void HospitalMarmaja::imprimirPaciente(Paciente* p, string forma) {
         cout
         << "Nombre: " << p->getNombre()
         <<" ("<<p->getEdad()<< ")";
-    }
-    else if (forma == "todo") {
+    }else if (forma == "todo") {
         cout
         << "ID: " <<id <<endl
         << "Nombre: " << p->getNombre() << endl
@@ -335,25 +334,31 @@ bool HospitalMarmaja::pacienteRepetido(int id) {
 }
 
 void HospitalMarmaja::buscarPaciente() {
-    string id_str = "";
+    cout<<"====== Buscar Paciente ======";
+    string id_str;
     int id;
-    try {
-        cin>>id_str;
-        id = stoi(id_str);
-    }catch (...) {
-        cout<< "ERROR: Paciente no encontrado o ID invalido"<<endl;
-        return;
-    }
-    int contador= 0;
-    try{
-    while (true) {
-        Paciente* paciente = datos->get(contador);
-        if (paciente->getId() == id) {
-            imprimirPaciente(paciente,"todo");
+    cout<<endl<<"Ingrese el ID: ";
+    cin>>id_str;
+    for (char c : id_str) {
+        if (!isdigit(c)) {
+            cout<< "ERROR: ID no valido"<<endl;
             return;
         }
-        contador++;
     }
-}catch (...){}
-    cout<<"Error: Paciente no encontrado"<<endl;
+    id = stoi(id_str);
+
+    int index = 0;
+    while (true) {
+        try {
+            if (datos->get(index)->getId() == id) {
+                imprimirPaciente(datos->get(index),"todo");
+                cout<<separador<<endl;
+                return;
+            }
+        }catch (...) {
+            cout<<"Paciente no encontrado..."<<endl;
+            return;
+        }
+        index++;
+    }
 }

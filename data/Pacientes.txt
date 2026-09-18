@@ -1,7 +1,7 @@
-001;Juan Perez;25;Cardiologia
+000;Juan Perez;25;Cardiologia
 002;Maria Soto;67;Urgencias
 003;Pedro Rojas;43;Cirugia
 004;Ana Torres;12;Pediatria
 005;Luis Diaz;31;Traumatologia
 006;Javier Gonzales;1;Traumatologia
-000;Luis Diaz;;Traumatologia
+007;Luis Diaz;2;Traumatologia
