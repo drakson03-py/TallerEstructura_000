@@ -266,6 +266,15 @@ HospitalMarmaja::~HospitalMarmaja() {
             break;
         }
     }
+    aux = 0;
+    while (true) {//Recorre toda la lista de departamentos
+        try {
+            delete departamentos->get(aux);//Destruye la lista
+            aux++;
+        }catch (...) {
+            break;
+        }
+    }
     delete datos;
     delete fila;
     delete historial;

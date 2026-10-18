@@ -5,7 +5,7 @@
 
 #include "System.h"
 #include "../struct/Struct.h"
-#include "../model/Paciente.h"
+#include "../model/Model.h"
 #include <iostream>
 using namespace std;
 

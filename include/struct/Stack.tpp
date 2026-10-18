@@ -3,16 +3,17 @@
 #include "Stack.h"
 
 template<class T>
-Stack<T>::Stack() {
-    this->last = nullptr;
-}
+Stack<T>::Stack(): last(nullptr){}
 template <class T>
-Stack<T>::Stack(const Stack& s) {
-    this->last = nullptr;
-    Node<T>* n = s.last;
-    while (n) {
-        this->push(n->getValue());
-        n=n->getNext();
+Stack<T>::Stack(const Stack& s):last(nullptr) {
+    Node<T>* cur = s.last;
+    if (!cur){return;}
+    this ->last = new Node<T>(cur->getValue());
+    Node<T>* curCopy = this -> last;
+
+    while (cur->getNext()) {
+        curCopy -> setNext(new Node(cur -> getNext()->getValue()));
+        cur = cur ->getNext();
     }
 }
 

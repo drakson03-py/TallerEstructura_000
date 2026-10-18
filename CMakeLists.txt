@@ -16,6 +16,7 @@ add_executable(TallerEstruct main.cpp
         include/services/HospitalMarmaja.h
         include/services/System.h
         include/services/Services.h
+        include/model/Model.h
 )
 
 #Se crea una variable que guarda la ruta relativa de la carpeta data
