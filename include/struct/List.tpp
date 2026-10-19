@@ -2,8 +2,7 @@
 #include "List.h"
 
 template<class T>
-List<T>::List() {
-    this -> start = nullptr;//Reserva memoria
+List<T>::List():start(nullptr),size(0) {
 }
 
 template<class T>
@@ -26,6 +25,7 @@ void List<T>::insert(T value, int index) {
     Node<T>* n = new Node<T>(value);
     n->setNext(cur->getNext());
     cur->setNext(n);
+    size++;
 }
 
 template<class T>
@@ -33,10 +33,12 @@ void List<T>::insertFirst(T value) {
     Node<T>* n = new Node<T>(value);
     if (this -> isEmpty()) {
         this -> start = n;
+        size++;
         return;
     }
     n->setNext(start);
     this -> start = n;
+    size++;
 }
 
 template<class T>
@@ -44,6 +46,7 @@ void List<T>::insertLast(T value) {
     Node<T>* n = new Node<T>(value);
     if (this->isEmpty()) {
         this->start = n;
+        size++;
         return;
     }
     Node<T>* cur = start;
@@ -51,6 +54,7 @@ void List<T>::insertLast(T value) {
         cur = cur->getNext();
     }
     cur -> setNext(n);
+    size++;
 }
 
 template<class T>
@@ -83,6 +87,12 @@ T List<T>::getLast() {
 }
 
 template<class T>
+int List<T>::getSize() {
+    return this->size;
+}
+
+
+template<class T>
 void List<T>::remove(int index) {
     if (index < 0 || this -> isEmpty()) throw nullptr;
 
@@ -90,6 +100,7 @@ void List<T>::remove(int index) {
         Node<T>* targetRemove = this->start;
         this -> start = this -> start -> getNext();
         delete targetRemove;
+        size--;
         return;
     }
     Node<T>* cur = start;
@@ -100,6 +111,7 @@ void List<T>::remove(int index) {
     Node<T>* targetRemove = cur ->getNext();
     cur -> setNext(targetRemove -> getNext());
     delete targetRemove;
+    size--;
 
 }
 

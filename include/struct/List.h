@@ -15,6 +15,7 @@ private:
      *Variable de tipo puntero que almacena el inicio de la lista
      */
     Node<T>* start;
+    int size;
 
 public:
     /**
@@ -65,6 +66,8 @@ public:
      * @return Elemento generico T
      */
     T getLast();
+
+    int getSize();
 
     /**
      * Remueve de la lista el elemento en la posicion indicada

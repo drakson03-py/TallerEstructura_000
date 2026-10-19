@@ -12,8 +12,9 @@ using namespace std;
 
 class FilePaciente {
 private:
-    string archivo;
-    List<Paciente*>* datos;
+    List<int>* ids;
+    string file;
+    bool archivoValido;
     bool isPacienteRepetido(int id);
     bool isLineaValida(stringstream& ss);
     bool isNumeroPositivo(string num);
@@ -24,8 +25,8 @@ private:
 
 public:
     FilePaciente(const string& archivo);
-    int cargarDatos();
-    List<Paciente*>* getDatos();
+    int leerArchivo();
+    bool cargarArchivo(List<Paciente*>* datos);
     ~FilePaciente();
 };
 

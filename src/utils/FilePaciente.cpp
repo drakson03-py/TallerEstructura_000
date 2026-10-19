@@ -5,13 +5,16 @@
 #include <sstream>
 #include <filesystem>
 #include "../../include/utils/FilePaciente.h"
-#include "../../include/utils/PacienteBuilder.h"
 
-FilePaciente::FilePaciente(const string& archivo) : archivo(archivo),datos(new List<Paciente*>){}
+FilePaciente::FilePaciente(const string& file):file(file),ids(new List<int>()),archivoValido(false){}
 
-int FilePaciente::cargarDatos() {
+int FilePaciente::leerArchivo() {
+    delete ids;
+    ids = new List<int>();
+    archivoValido = false;
+
     filesystem::path data_dir = DATA_DIR;
-    ifstream archivo(data_dir / this ->archivo);//Accede al archivo de la carpeta data
+    ifstream archivo(data_dir / this->file);//Accede al archivo de la carpeta data
     if (!archivo.is_open()) {
         return 1;
     }
@@ -24,34 +27,79 @@ int FilePaciente::cargarDatos() {
             archivo.close();
             return 2;
         }
+        string id_str;
+        getline(ss,id_str,';' );
+        int id = stoi(id_str);
 
-        Paciente* p = PacienteBuilder().buildLine(ss);
-
-        if (this->isPacienteRepetido(p->getId())) {
-            delete p;
+        if (isPacienteRepetido(id)) {
             archivo.close();
             return 3;
         }
-        datos->insertLast(p);
+        ids->insertLast(id);
     }
     archivo.close();
+    archivoValido = true;
     return 0;
 }
 
-List<Paciente*>* FilePaciente::getDatos() {
-    return this->datos;
+bool FilePaciente::cargarArchivo(List<Paciente *> *datos) {
+    if (!archivoValido || datos == nullptr) {
+        return false;
+    }
+
+    filesystem::path data_dir = DATA_DIR;
+    ifstream archivo(data_dir / file);
+
+    if (!archivo.is_open()) {
+        archivoValido = false;
+        return false;
+    }
+
+    string linea;
+    while (getline(archivo, linea)) {
+        //Lee el archivo
+        stringstream ss(linea);//Lee una linea
+        string str_id, nombre, str_edad, str_temperatura, str_presion, str_dolor, tipoDolor, str_trauma, str_sintomasNeuro, str_cirugia, str_dias;
+
+        getline(ss, str_id, ';');
+        getline(ss, nombre, ';');
+        getline(ss, str_edad, ';');
+        getline(ss, str_temperatura, ';');
+        getline(ss, str_presion, ';');
+        getline(ss, str_dolor, ';');
+        getline(ss, tipoDolor, ';');
+        getline(ss, str_trauma, ';');
+        getline(ss, str_sintomasNeuro, ';');
+        getline(ss, str_cirugia, ';');
+        getline(ss, str_dias, ';');
+
+        Paciente* p = new Paciente(
+        stoi(str_id),
+        nombre,
+        stoi(str_edad),
+        stof(str_temperatura),
+        stof(str_presion),
+        stoi(str_dolor),
+        tipoDolor,
+        str_trauma != "0",
+        str_sintomasNeuro != "0",
+        str_cirugia != "0",
+        stoi(str_dias)
+        );
+
+        datos->insertLast(p);
+    }
+    archivo.close();
+    return true;
 }
 
+
 bool FilePaciente::isPacienteRepetido(int id) {
-    int aux = 0;
-    while (true) {
-        try {
-            if (datos->get(aux)->getId() == id){return true;}
-            aux++;
-        }catch (...) {
-            return false;
-        }
+    for (int i = 0; i < ids->getSize(); i++) {
+        if (ids->get(i) == id){return true;}
     }
+    return false;
+
 }
 
 bool FilePaciente::isLineaValida(stringstream& ss) {
@@ -137,12 +185,5 @@ bool FilePaciente::isNumeroEntero(string num) {
 }
 
 FilePaciente::~FilePaciente() {
-    int aux = 0;
-    while (true) {
-        try {
-            delete datos->get(aux);
-            aux++;
-        }catch (...) {break;}
-    }
-    delete datos;
+    delete ids;
 }

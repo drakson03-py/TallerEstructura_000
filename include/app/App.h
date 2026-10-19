@@ -10,12 +10,13 @@ using namespace std;
 
 class App {
 private:
+    string archivo;
     System* system;
-    List<Paciente*>* datos; /**< Lista que almacena los punteros a los pacientes  */
-    Queue<Paciente*>* fila; /**< Cola que almacena los pacientes pendientes en atender */
+    List<Paciente*>* datos;
+    Queue<Paciente*>* fila;
 
 public:
-    App(List<Paciente*>* datos,System* system);
+    App(const string& archivo, System* system);
     void run();
     ~App();
 };

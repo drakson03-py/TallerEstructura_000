@@ -14,8 +14,6 @@ add_executable(TallerEstruct main.cpp
         include/model/Model.h
         src/model/Paciente.cpp
         include/model/Paciente.h
-        src/utils/PacienteBuilder.cpp
-        include/utils/PacienteBuilder.h
         include/services/System.h
         src/services/SystemImpl.cpp
         include/services/SystemImpl.h
@@ -25,6 +23,7 @@ add_executable(TallerEstruct main.cpp
         include/utils/FilePaciente.h
         src/utils/PrintPaciente.cpp
         include/utils/PrintPaciente.h
+        include/utils/Utils.h
 )
 
 #Se crea una variable que guarda la ruta relativa de la carpeta data
