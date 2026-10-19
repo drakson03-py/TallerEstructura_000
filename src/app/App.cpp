@@ -28,12 +28,13 @@ void App::run() {
         cin >> opcion;
 
         if (opcion == "1") {
-            Queue<Paciente*>* copy(this->fila);
+            Queue<Paciente*>* copy = new Queue(*this->fila);
             while (!copy->empty()) {
                 print->datos(copy->front());
                 cout<<separador<<endl;
                 copy->pop();
             }
+            delete copy;
 
 
         }else if (opcion == "2") {
