@@ -86,7 +86,7 @@ template<class T>
 void List<T>::remove(int index) {
     if (index < 0 || this -> isEmpty()) throw nullptr;
 
-   if (index - 1 < 0) {
+   if (index == 0) {
         Node<T>* targetRemove = this->start;
         this -> start = this -> start -> getNext();
         delete targetRemove;

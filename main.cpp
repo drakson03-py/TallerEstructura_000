@@ -3,54 +3,34 @@
 
 
 using namespace std;
-/**
- * Crea una instancia del Hospital Marmaja, carga los pacientes
- * y muestra un menú para acceder a las distintas funciones del sistema
- *
- * @return 0 si el programa finaliza correctamente, 1 en caso contrario
- */
-int main() {
 
+#include "include/services/Services.h"
+#include "include/app/App.h"
+#include "include/utils/FilePaciente.h"
+
+int main(){
     string archivo = "Pacientes.txt";
 
-    System* hospital = new HospitalMarmaja(archivo);
-
-    bool valido = hospital->cargaDePacientes();
-
-    while (valido) {
-        cout<<endl
-        << "======= Hospital Marmaja ======="<<endl
-        << "0. Buscar paciente" << endl
-        << "1. Atender pacientes" << endl
-        << "2. Ver departamentos" << endl
-        << "3. Revisar historial de atencion" << endl
-        << "4. Salir" << endl;
-
-        string opcion = "";
-        cout << endl << "Seleccione una opcion: ";
-        cin >> opcion;
-
-        if (opcion == "1") {
-            hospital -> atenderPacientes();
-
-        }else if (opcion == "2") {
-            hospital -> verDepartamento();
-
-        }else if (opcion == "3") {
-            hospital ->revisarHistorialDeAtencion();
-
-        }else if (opcion == "4") {
-            cout<<endl<<"Finalizando programa...";
-            break;
-
+    FilePaciente* file = new FilePaciente(archivo);
+    int carga = file->cargarDatos();
+    if (carga != 0) {
+        if (carga == 1) {
+            cout<<"ERROR: Archivo no encontrado"<<endl;
+        }else if (carga == 2) {
+            cout<<"ERROR: Archivo no valido -> Linea del archivo no valida"<<endl;
+        }else if (carga == 3) {
+            cout<<"ERROR: Archivo no valido -> Paciente repetido"<<endl;
         }
-        else if (opcion == "0"){
-            hospital -> buscarPaciente();
-        }
-        else {
-            cout << endl<< "ERROR: Seleccione una opcion valida" << endl;
-        }
+        return 1;
     }
-    delete hospital;
-    return (valido ? 0:1);
-}
+
+    System* system = new SystemImpl();
+    App* app = new App(file->getDatos(), system);
+    app->run();
+
+    delete app;
+    delete file;
+    delete system;
+
+    return 0;
+};

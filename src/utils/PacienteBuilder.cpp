@@ -2,13 +2,15 @@
 // Created by seba2 on 18-10-2026.
 //
 
-#include "../../include/model/PacienteBuilder.h"
+#include "../../include/utils/PacienteBuilder.h"
+
+#include <sstream>
 
 PacienteBuilder::PacienteBuilder()
-    : id(0),nombre("Sin nombre"), edad(0), temperatura(0.0f),
-      presionArterial(0.0f), dolor(0),
+    : id(0),nombre("Sin nombre"), edad(0), temperatura(0.0),
+      presionArterial(0.0), dolor(0),
       trauma(false), sintomasNeurologicos(false),
-      requiereCirugia(false), diasHospitalizacion(0) {
+      requiereCirugia(false), diasHospitalizacion(0){
 }
 
 PacienteBuilder& PacienteBuilder::setId(int id) {
@@ -31,8 +33,18 @@ PacienteBuilder& PacienteBuilder::setTemperatura(float temperatura) {
     return *this;
 }
 
+PacienteBuilder& PacienteBuilder::setPresionArterial(float presionArterial) {
+    this -> presionArterial = presionArterial;
+    return *this;
+}
+
 PacienteBuilder& PacienteBuilder::setDolor(int dolor) {
     this -> dolor = dolor;
+    return *this;
+}
+
+PacienteBuilder& PacienteBuilder::setTrauma(bool trauma) {
+    this->trauma = trauma;
     return *this;
 }
 
@@ -57,6 +69,7 @@ PacienteBuilder& PacienteBuilder::setDiasHospitalizacion(int diasHospitalizacion
 }
 
 Paciente* PacienteBuilder::build() {
+
     return new Paciente(
         id,
         nombre,
@@ -70,4 +83,33 @@ Paciente* PacienteBuilder::build() {
         requiereCirugia,
         diasHospitalizacion
         );
+}
+
+Paciente* PacienteBuilder::buildLine(stringstream& ss) {
+    string str_id, nombre, str_edad, str_temperatura, str_presion, str_dolor, tipoDolor, str_trauma, str_sintomasNeuro, str_cirugia, str_dias;
+
+    getline(ss, str_id, ';');
+    getline(ss, nombre, ';');
+    getline(ss, str_edad, ';');
+    getline(ss, str_temperatura, ';');
+    getline(ss, str_presion, ';');
+    getline(ss, str_dolor, ';');
+    getline(ss, tipoDolor, ';');
+    getline(ss, str_trauma, ';');
+    getline(ss, str_sintomasNeuro, ';');
+    getline(ss, str_cirugia, ';');
+    getline(ss, str_dias, ';');
+    return PacienteBuilder()
+        .setId(stoi(str_id))
+        .setNombre(nombre)
+        .setEdad(stoi(str_edad))
+        .setTemperatura(stof(str_temperatura))
+        .setPresionArterial(stof(str_presion))
+        .setDolor(stoi(str_dolor))
+        .setTipoDolor(tipoDolor)
+        .setTrauma(str_trauma != "0")
+        .setSintomasNeurologicos(str_sintomasNeuro != "0")
+        .setRequiereCirugia(str_cirugia != "0")
+        .setDiasHospitalizacion(stoi(str_dias))
+        .build();
 }

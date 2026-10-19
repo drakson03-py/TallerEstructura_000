@@ -4,7 +4,9 @@
 
 #ifndef TALLERESTRUCT_PACIENTEBUILDER_H
 #define TALLERESTRUCT_PACIENTEBUILDER_H
-#include "Paciente.h"
+#include <sstream>
+#include "../model/Paciente.h"
+using namespace std;
 
 class PacienteBuilder {
 private:
@@ -26,14 +28,15 @@ public:
     PacienteBuilder& setNombre(const string& nombre);
     PacienteBuilder& setEdad(int edad);
     PacienteBuilder& setTemperatura(float temperatura);
+    PacienteBuilder& setPresionArterial(float presionArterial);
     PacienteBuilder& setDolor(int dolor);
     PacienteBuilder& setTipoDolor(const string& tipoDolor);
     PacienteBuilder& setTrauma(bool trauma);
     PacienteBuilder& setSintomasNeurologicos(bool sintomasNeurologicos);
     PacienteBuilder& setRequiereCirugia(bool requiereCirugia);
     PacienteBuilder& setDiasHospitalizacion(int diasHospitalizacion);
-
     Paciente* build();
+    Paciente* buildLine(stringstream& ss);
 };
 
 #endif //TALLERESTRUCT_PACIENTEBUILDER_H

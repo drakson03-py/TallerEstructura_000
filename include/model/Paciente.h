@@ -6,10 +6,6 @@
 #define TALLERESTRUCT_PACIENTE2_H
 
 
-/**
-     * Clase "Paciente" que modela y almacena la informacion de cada individuo extraido del archivo .txt
-     */
-
 #include <iostream>
 using namespace std;
 
@@ -80,9 +76,7 @@ public:
     int getDiasHospitalizacion() const;
     void setDiasHospitalizacion(int diasHospitalizacion);
 
-    /**
-     * Destructor
-     */
+
     ~Paciente() = default;
 };
 
