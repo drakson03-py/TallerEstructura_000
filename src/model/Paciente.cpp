@@ -1,25 +1,121 @@
+//
+// Created by seba2 on 18-10-2026.
+//
+
 #include "../../include/model/Paciente.h"
 
-Paciente::Paciente(int id,string nombre,int edad,string servicio) {
-    this -> id = id;
-    this -> nombre = nombre;
-    this -> edad = edad;
-    this -> servicio = servicio;
+
+Paciente::Paciente(
+    int id,
+    const string &nombre,
+    int edad,
+    float temperatura,
+    float presionArterial,
+    int dolor,
+    const string &tipoDolor,
+    bool trauma,
+    bool sintomasNeurologicos,
+    bool requiereCirugia,
+    int diasHospitalizacion
+    )
+    : id(id),
+      nombre(nombre),
+      edad(edad),
+      temperatura(temperatura),
+      presionArterial(presionArterial),
+      dolor(dolor),
+      tipoDolor(tipoDolor),
+      trauma(trauma),
+      sintomasNeurologicos(sintomasNeurologicos),
+      requiereCirugia(requiereCirugia),
+      diasHospitalizacion(diasHospitalizacion) {
 }
 
-int Paciente::getId() {
-    return this->id;
+int Paciente::getId() const {
+    return id;
 }
 
-string Paciente::getNombre() {
-    return this->nombre;
+void Paciente::setId(int id) {
+    this->id = id;
 }
 
-int Paciente::getEdad() {
-    return this->edad;
+string Paciente::getNombre() const {
+    return nombre;
 }
 
-string Paciente::getServicio() {
-    return this->servicio;
+void Paciente::setNombre(const string &nombre) {
+    this->nombre = nombre;
 }
-Paciente::~Paciente() = default;
+
+int Paciente::getEdad() const {
+    return edad;
+}
+
+void Paciente::setEdad(int edad) {
+    this->edad = edad;
+}
+
+float Paciente::getTemperatura() const {
+    return temperatura;
+}
+
+void Paciente::setTemperatura(float temperatura) {
+    this->temperatura = temperatura;
+}
+
+float Paciente::getPresionArterial() const {
+    return presionArterial;
+}
+
+void Paciente::setPresionArterial(float presionArterial) {
+    this->presionArterial = presionArterial;
+}
+
+int Paciente::getDolor() const {
+    return dolor;
+}
+
+void Paciente::setDolor(int dolor) {
+    this->dolor = dolor;
+}
+
+string Paciente::getTipoDolor() const {
+    return tipoDolor;
+}
+
+void Paciente::setTipoDolor(const string &tipoDolor) {
+    this->tipoDolor = tipoDolor;
+}
+
+bool Paciente::isTrauma() const {
+    return trauma;
+}
+
+void Paciente::setTrauma(bool trauma) {
+    this->trauma = trauma;
+}
+
+bool Paciente::isSintomasNeurologicos() const {
+    return sintomasNeurologicos;
+}
+
+void Paciente::setSintomasNeurologicos(bool sintomasNeurologicos) {
+    this->sintomasNeurologicos = sintomasNeurologicos;
+}
+
+bool Paciente::isRequiereCirugia() const {
+    return requiereCirugia;
+}
+
+void Paciente::setRequiereCirugia(bool requiereCirugia) {
+    this->requiereCirugia = requiereCirugia;
+}
+
+int Paciente::getDiasHospitalizacion() const {
+    return diasHospitalizacion;
+}
+
+void Paciente::setDiasHospitalizacion(int diasHospitalizacion) {
+    this->diasHospitalizacion = diasHospitalizacion;
+}
+

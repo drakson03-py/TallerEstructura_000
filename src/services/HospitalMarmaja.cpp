@@ -8,12 +8,12 @@
 using namespace std;
 
 HospitalMarmaja::HospitalMarmaja(string archivo) : System(archivo)  {
-    this-> datos = new List<Paciente*>();
-    this -> fila = new Queue<Paciente*>();
-    this -> historial = new Stack<Paciente*>();
-    this -> departamentos = new List<List<Paciente*>*>();
+    this-> datos = new List<Paciente1*>();
+    this -> fila = new Queue<Paciente1*>();
+    this -> historial = new Stack<Paciente1*>();
+    this -> departamentos = new List<List<Paciente1*>*>();
     for (int i = 0; i<( 8 ); i++) {//Se crean y agregan 8 listas vacías para almacenar punteros a pacientes
-        List<Paciente*>* value = new List<Paciente*>();
+        List<Paciente1*>* value = new List<Paciente1*>();
         departamentos->insertLast(value);
     }
 }
@@ -33,6 +33,14 @@ const string* ptr = lista;
 const string separador= "------------------------------------------";
 
 bool HospitalMarmaja::cargaDePacientes() {
+    Paciente* p = PacienteBuilder().setNombre("lalo").build();
+    cout<<p->getNombre()<<endl;
+    delete p;
+    p = PacienteBuilder().build();
+    cout<<p->getNombre();
+    delete p;
+
+
     filesystem::path data_dir = DATA_DIR;//Direccion de la carpeta data
 
     ifstream archivo(data_dir / this ->archivo);//Accede al archivo de la carpeta data
@@ -131,7 +139,7 @@ bool HospitalMarmaja::cargaDePacientes() {
             cout << "ERROR: El archivo contiene mas de 1 paciente con el mismo ID";
             return false;
         }
-        Paciente* p = new Paciente(id,nombre,edad,servicio);//Se construye el paciente
+        Paciente1* p = new Paciente1(id,nombre,edad,servicio);//Se construye el paciente
         datos->insertLast(p);//Se inserta en la lista de pacientes
         fila->push(p);//Se agrega a la fila
     }
@@ -186,7 +194,7 @@ void HospitalMarmaja::atenderPacientes() {
         cout <<endl<< "NO hay pacientes por atender..";
         return;
     }
-    Queue<Paciente*>* copy = new Queue<Paciente*>( *fila);//Se crea una copia de la fila
+    Queue<Paciente1*>* copy = new Queue<Paciente1*>( *fila);//Se crea una copia de la fila
     int i = 1;
     while (!copy->empty()) {
         cout << endl <<i << ".  "; imprimirPaciente(copy->front(), "atender");
@@ -245,7 +253,7 @@ void HospitalMarmaja::revisarHistorialDeAtencion() {
         return;
     }
     cout<<"====== Historial de pacientes atendidos ======"<<endl;
-    Stack<Paciente*>* copy = new Stack(*historial);
+    Stack<Paciente1*>* copy = new Stack(*historial);
     while (!copy->empty()) {//Muestra el historial de pacientes atendidos
         imprimirPaciente(copy->top(),"historial");
         cout<<endl;
@@ -292,7 +300,7 @@ string HospitalMarmaja::idString(int id) {
     return cero + to_string(id);
 }
 
-void HospitalMarmaja::imprimirPaciente(Paciente* p, string forma) {
+void HospitalMarmaja::imprimirPaciente(Paciente1* p, string forma) {
     string id = idString(p->getId());
     if (forma == "atender"){
         cout

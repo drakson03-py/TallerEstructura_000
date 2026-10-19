@@ -1,6 +1,10 @@
+//
+// Created by seba2 on 18-10-2026.
+//
 
-#ifndef TALLERESTRUCT_PACIENTE_H
-#define TALLERESTRUCT_PACIENTE_H
+#ifndef TALLERESTRUCT_PACIENTE2_H
+#define TALLERESTRUCT_PACIENTE2_H
+
 
 /**
      * Clase "Paciente" que modela y almacena la informacion de cada individuo extraido del archivo .txt
@@ -14,45 +18,73 @@ private:
     int id;
     string nombre;
     int edad;
-    string servicio;
+    float temperatura;
+    float presionArterial;
+    int dolor;
+    string tipoDolor;
+    bool trauma;
+    bool sintomasNeurologicos;
+    bool requiereCirugia;
+    int diasHospitalizacion;
+
 public:
     /**
-     * Constructor
-     * @param id Variable tipo int que almacena su numero tipo unico identificador
-     * @param nombre Variable tipo string que almacena el nombre del individuo
-     * @param edad  Variable tipo int que almacena el nombre del individuo
-     * @param servicio  Variable tipo string que almacena el tipo de especialidad a ser atendido del paciente
+     * aa
+     * @param id aa
+     * @param nombre
+     * @param edad
+     * @param temperatura
+     * @param presionArterial
+     * @param dolor
+     * @param tipoDolor
+     * @param trauma
+     * @param sintomasNeurologicos
+     * @param requiereCirugia
+     * @param diasHospitalizacion
      */
-    Paciente(int id,string nombre,int edad,string servicio);
+    Paciente(int id, const string &nombre, int edad, float temperatura, float presionArterial, int dolor,
+             const string &tipoDolor, bool trauma, bool sintomasNeurologicos, bool requiereCirugia,
+             int diasHospitalizacion);
 
-    /**
-     * Devuelve el identificador del paciente
-     * @return Id del paciente.
-     */
-    int getId();
 
-    /**
-     * Devuelve el nombre del paciente
-     * @return Nombre afiliado al paciente
-     */
-    string getNombre();
+    int getId() const;
+    void setId(int id);
 
-    /**
-     * Devuelve la edad del paciente
-     * @return Edad afiliada al paciente
-     */
-    int getEdad();
+    string getNombre() const;
+    void setNombre(const string &nombre);
 
-    /**
-     * Devuelve el servicio del paciente
-     * @return Servicio del paciente
-     */
-    string getServicio();
+    int getEdad() const;
+    void setEdad(int edad);
+
+    float getTemperatura() const;
+    void setTemperatura(float temperatura);
+
+    float getPresionArterial() const;
+    void setPresionArterial(float presionArterial);
+
+    int getDolor() const;
+    void setDolor(int dolor);
+
+    string getTipoDolor() const;
+    void setTipoDolor(const string &tipoDolor);
+
+    bool isTrauma() const;
+    void setTrauma(bool trauma);
+
+    bool isSintomasNeurologicos() const;
+    void setSintomasNeurologicos(bool sintomasNeurologicos);
+
+    bool isRequiereCirugia() const;
+    void setRequiereCirugia(bool requiereCirugia);
+
+    int getDiasHospitalizacion() const;
+    void setDiasHospitalizacion(int diasHospitalizacion);
 
     /**
      * Destructor
      */
-    ~Paciente();
+    ~Paciente() = default;
 };
 
-#endif //TALLERESTRUCT_PACIENTE_H
+
+#endif //TALLERESTRUCT_PACIENTE2_H

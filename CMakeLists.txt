@@ -3,7 +3,7 @@ project(TallerEstruct)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(TallerEstruct main.cpp
-        include/model/Paciente.h
+        include/model/Paciente1.h
         include/struct/List.h
         include/struct/Node.tpp
         include/struct/Queue.h
@@ -11,12 +11,16 @@ add_executable(TallerEstruct main.cpp
         include/struct/Stack.h
         include/struct/Stack.tpp
         include/struct/Struct.h
-        src/model/Paciente.cpp
+        src/model/Paciente1.cpp
         src/services/HospitalMarmaja.cpp
         include/services/HospitalMarmaja.h
         include/services/System.h
         include/services/Services.h
         include/model/Model.h
+        src/model/Paciente.cpp
+        include/model/Paciente.h
+        src/model/PacienteBuilder.cpp
+        include/model/PacienteBuilder.h
 )
 
 #Se crea una variable que guarda la ruta relativa de la carpeta data

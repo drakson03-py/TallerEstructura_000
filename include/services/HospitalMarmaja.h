@@ -16,10 +16,10 @@ using namespace std;
  */
 class HospitalMarmaja: public System {
 private:
-    List<Paciente*>* datos; /**< Lista que almacena los punteros a los pacientes  */
-    Queue<Paciente*>* fila; /**< Cola que almacena los pacientes pendientes en atender */
-    Stack<Paciente*>* historial; /**< Pila que almacena los pacientes atendidos */
-    List<List<Paciente*>*>* departamentos; /**< Lista que contiene los pacientes atendidos en cada departamento */
+    List<Paciente1*>* datos; /**< Lista que almacena los punteros a los pacientes  */
+    Queue<Paciente1*>* fila; /**< Cola que almacena los pacientes pendientes en atender */
+    Stack<Paciente1*>* historial; /**< Pila que almacena los pacientes atendidos */
+    List<List<Paciente1*>*>* departamentos; /**< Lista que contiene los pacientes atendidos en cada departamento */
 public:
 
     /**
@@ -52,7 +52,7 @@ public:
      * @param p Puntero al paciente que se desea mostrar
      * @param forma Formato utilizado para mostrar el paciente
      */
-    void imprimirPaciente(Paciente* p, string forma);//s
+    void imprimirPaciente(Paciente1* p, string forma);//s
 
     /**
      * Verifica si un id de un paciente ya se encuentra registrado
