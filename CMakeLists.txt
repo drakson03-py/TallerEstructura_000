@@ -24,6 +24,8 @@ add_executable(TallerEstruct main.cpp
         src/utils/PrintPaciente.cpp
         include/utils/PrintPaciente.h
         include/utils/Utils.h
+        include/struct/NodeAVL.h
+        include/struct/NodeAVL.tpp
 )
 
 #Se crea una variable que guarda la ruta relativa de la carpeta data
