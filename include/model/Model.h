@@ -6,5 +6,6 @@
 #define TALLERESTRUCT_MODEL_H
 
 #include "Paciente.h"
+#include "ArbolDecision.h"
 
 #endif //TALLERESTRUCT_MODEL_H

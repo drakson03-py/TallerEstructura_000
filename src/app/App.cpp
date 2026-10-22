@@ -4,6 +4,8 @@
 
 #include "../../include/app/App.h"
 #include "../../include/utils/Utils.h"
+#include "../../include/struct/BTNode.h"
+#include "../../include/model/ArbolDecision.h"
 
 App::App(const string& archivo, System* system)
     : archivo(archivo),
@@ -13,6 +15,7 @@ App::App(const string& archivo, System* system)
 }
 
 void App::run() {
+
     string separador = "--------------------------------------------\n";
     if (system == nullptr) {
         cout<<"ERROR: Fallo del sistema"<<endl
@@ -51,6 +54,7 @@ void App::run() {
 
     fila = new Queue<Paciente*>();
     system->cargarFila(datos,fila);
+    ArbolDecision* arbolDecision = system->buildArbolDecision();
 
     PrintPaciente print;
 
@@ -67,16 +71,30 @@ void App::run() {
         cin >> opcion;
 
         if (opcion == "1") {
+            cout<< "======= Atender Pacientes ======="<<endl;
+            if (fila->empty()) {
+                cout<<"No hay pacientes por atender.."<<endl;
+                cout<<separador;
+                continue;
+            }
+            Paciente* p = fila->front();fila->pop();
+            print.datos(p);
+            string ruta = "";
+            string servicio = arbolDecision->decision(p,&ruta);
+            cout<<endl<<"Ruta: "<<ruta<<endl<<endl
+            <<"Servicio asignado: "<<servicio<<endl;
+
+
+
 
         }else if (opcion == "2") {
 
         }else if (opcion == "3") {
 
-
         }
     }
 
-
+    delete arbolDecision;
     cout<<endl<<"Finalizando programa...";
 }
 

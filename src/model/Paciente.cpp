@@ -10,7 +10,7 @@ Paciente::Paciente(
     const string &nombre,
     int edad,
     float temperatura,
-    float presionArterial,
+    string presionArterial,
     int dolor,
     const string &tipoDolor,
     bool trauma,
@@ -63,11 +63,11 @@ void Paciente::setTemperatura(float temperatura) {
     this->temperatura = temperatura;
 }
 
-float Paciente::getPresionArterial() const {
+string Paciente::getPresionArterial() const {
     return presionArterial;
 }
 
-void Paciente::setPresionArterial(float presionArterial) {
+void Paciente::setPresionArterial(string presionArterial) {
     this->presionArterial = presionArterial;
 }
 

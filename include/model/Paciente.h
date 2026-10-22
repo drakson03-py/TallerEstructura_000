@@ -15,7 +15,7 @@ private:
     string nombre;
     int edad;
     float temperatura;
-    float presionArterial;
+    string presionArterial;
     int dolor;
     string tipoDolor;
     bool trauma;
@@ -38,7 +38,7 @@ public:
      * @param requiereCirugia
      * @param diasHospitalizacion
      */
-    Paciente(int id, const string &nombre, int edad, float temperatura, float presionArterial, int dolor,
+    Paciente(int id, const string &nombre, int edad, float temperatura, string presionArterial, int dolor,
              const string &tipoDolor, bool trauma, bool sintomasNeurologicos, bool requiereCirugia,
              int diasHospitalizacion);
 
@@ -55,8 +55,8 @@ public:
     float getTemperatura() const;
     void setTemperatura(float temperatura);
 
-    float getPresionArterial() const;
-    void setPresionArterial(float presionArterial);
+    string getPresionArterial() const;
+    void setPresionArterial(string presionArterial);
 
     int getDolor() const;
     void setDolor(int dolor);

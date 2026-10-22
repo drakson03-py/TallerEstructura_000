@@ -17,11 +17,15 @@ private:
     bool archivoValido;
     bool isPacienteRepetido(int id);
     bool isLineaValida(stringstream& ss);
+
+    bool isDolorValido(string dolor);
+
     bool isNumeroPositivo(string num);
     bool isNumeroEntero(string num);
     bool isAtributoVacio(string atributo);
     bool isBool(string b);
-    bool isDolorValido(string dolor);
+    bool isTipoDolorValido(string dolor);
+    bool isPresionValida(string presion);
 
 public:
     FilePaciente(const string& archivo);

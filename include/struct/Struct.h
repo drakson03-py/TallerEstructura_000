@@ -6,5 +6,6 @@
 #include "Node.h"
 #include "Queue.h"
 #include "Stack.h"
+#include "BTNode.h"
 
 #endif //TALLERESTRUCT_STRUCT_H

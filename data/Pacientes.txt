@@ -1,5 +1,5 @@
-1;Ana Torres;23;38.8;156;1;pecho;0;0;0;8;
-2;Luis Morales;43;37.3;157;4;cabeza;0;0;0;9;
-3;Camila Rojas;36;38.1;103;4;abdomen;0;0;1;6;
-4;Pedro Silva;59;39.5;103;5;extremidad;1;0;0;4;
-5;Valentina Soto;20;38.0;115;1;otro;0;0;0;3;
+1;Ana Torres;23;38.11;156.090;7;cabeza;1;1;0;1;
+2;Luis Morales;43;37.3;157.090;4;cabeza;0;0;0;9;
+3;Camila Rojas;36;38.1;103.090;4;abdomen;0;0;1;6;
+4;Pedro Silva;59;39.5;103.090;5;extremidad;1;0;0;4;
+5;Valentina Soto;20;38.0;115.090;1;otro;0;0;0;3;

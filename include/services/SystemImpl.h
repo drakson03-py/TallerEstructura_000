@@ -12,6 +12,7 @@ public:
 
     ~SystemImpl() = default;
 
+    ArbolDecision* buildArbolDecision() override;
 };
 
 

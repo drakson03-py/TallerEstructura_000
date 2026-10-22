@@ -78,7 +78,7 @@ bool FilePaciente::cargarArchivo(List<Paciente *> *datos) {
         nombre,
         stoi(str_edad),
         stof(str_temperatura),
-        stof(str_presion),
+        str_presion,
         stoi(str_dolor),
         tipoDolor,
         str_trauma != "0",
@@ -114,9 +114,9 @@ bool FilePaciente::isLineaValida(stringstream& ss) {
     getline(copy, nombre, ';'); if (isAtributoVacio(nombre)){return false;}
     getline(copy, str_edad, ';'); if (!isNumeroEntero(str_edad)){return false;}
     getline(copy, str_temperatura, ';'); if (!isNumeroPositivo(str_temperatura)){return false;}
-    getline(copy, str_presion, ';'); if (!isNumeroPositivo(str_presion)){return false;}
-    getline(copy, str_dolor, ';'); if (!isNumeroEntero(str_dolor)){return false;}
-    getline(copy, tipoDolor, ';'); if (!isDolorValido(tipoDolor)){return false;}
+    getline(copy, str_presion, ';'); if (!isPresionValida(str_presion)){return false;}
+    getline(copy, str_dolor, ';'); if (!isDolorValido(str_dolor)){return false;}
+    getline(copy, tipoDolor, ';'); if (!isTipoDolorValido(tipoDolor)){return false;}
     getline(copy, str_trauma, ';'); if (!isBool(str_trauma)){return false;}
     getline(copy, str_sintomasNeuro, ';'); if (!isBool(str_sintomasNeuro)){return false;}
     getline(copy, str_cirugia, ';'); if (!isBool(str_cirugia)){return false;}
@@ -125,8 +125,11 @@ bool FilePaciente::isLineaValida(stringstream& ss) {
 
     return true;
 }
-
 bool FilePaciente::isDolorValido(string dolor) {
+    if (!isNumeroEntero(dolor)){return false;}
+    return stoi(dolor) <= 10;
+}
+bool FilePaciente::isTipoDolorValido(string dolor) {
     string dolores[5] = {"pecho","cabeza","abdomen","extremidad","otro"};
 
     for (string tipo : dolores) {
@@ -134,6 +137,17 @@ bool FilePaciente::isDolorValido(string dolor) {
     }
 
     return false;
+}
+
+bool FilePaciente::isPresionValida(string presion) {
+    int i = 0;
+    for (char c : presion) {
+        if (i == 3) {
+            if (c != '.'){return false;}
+        }else if (!(c >= '0' && c <='9')) {return false;}
+        i++;
+    }
+    return i == 7;
 }
 
 

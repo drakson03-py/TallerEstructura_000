@@ -12,12 +12,21 @@ void PrintPaciente::datos(Paciente* p) {
         cout << "No hay paciente" << endl;
         return;
     }
+    string presion = p->getPresionArterial();
+    string mostrarPresion = "";
+    for (char c : presion) {
+        if (c == '.') {
+            mostrarPresion = mostrarPresion + "/";
+        }else {
+            mostrarPresion = mostrarPresion + c;
+        }
+    }
 
     cout << "ID: " << id(p->getId()) << endl
          << "Nombre: " << p->getNombre() << endl
          << "Edad: " << p->getEdad() << endl
          << "Temperatura: " << p->getTemperatura() << endl
-         << "Presion arterial: " << p->getPresionArterial() << endl
+         << "Presion arterial: " <<  mostrarPresion<< endl
          << "Nivel de dolor: " << p->getDolor() << endl
          << "Tipo de dolor: " << p->getTipoDolor() << endl
          << "Trauma: " << (p->isTrauma() ? "Si" : "No") << endl
