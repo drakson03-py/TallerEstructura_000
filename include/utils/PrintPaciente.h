@@ -10,11 +10,11 @@ using namespace std;
 
 class PrintPaciente {
 private:
-    string id(int id);
+
 public:
     PrintPaciente();
     void datos(Paciente* p);
-
+    string id(int id);
     ~PrintPaciente() = default;
 };
 

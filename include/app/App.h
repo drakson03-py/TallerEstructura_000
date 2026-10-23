@@ -6,6 +6,7 @@
 #define TALLERESTRUCT_APP_H
 #include "../services/System.h"
 #include <iostream>
+#include "../utils/PrintPaciente.h"
 using namespace std;
 
 class App {
@@ -14,6 +15,13 @@ private:
     System* system;
     List<Paciente*>* datos;
     Queue<Paciente*>* fila;
+
+    DepartamentoAVL departamentos[NUM_DEPARTAMENTOS];
+    PrintPaciente print;
+    void imprimirPacientesInline(NodoAVL<Paciente*>* nodo, bool& primero);
+    void mostrarResultadoBusqueda(const ResultadoBusqueda& resultado);
+    void mostrarEstadoDepartamentos();
+
 
 public:
     App(const string& archivo, System* system);

@@ -3,7 +3,7 @@
 //
 
 #include "../../include/model/ArbolDecision.h"
-#include "../../include/struct/stack.h"
+#include "../../include/struct/Stack.h"
 ArbolDecision::ArbolDecision():raiz(nullptr) {}
 ArbolDecision::ArbolDecision(BTNode<Condicion>* raiz):raiz(raiz){}
 

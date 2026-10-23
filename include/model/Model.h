@@ -7,5 +7,7 @@
 
 #include "Paciente.h"
 #include "ArbolDecision.h"
+#include "DepartamentoaAVL.h"
+#include "ResultadoBusqueda.h"
 
 #endif //TALLERESTRUCT_MODEL_H

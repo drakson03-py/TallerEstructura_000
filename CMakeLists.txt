@@ -32,6 +32,9 @@ add_executable(TallerEstruct main.cpp
         include/model/ArbolDecision.h
         include/struct/ArbolAVL.h
         include/struct/ArbolAVL.tpp
+        include/model/DepartamentoaAVL.h
+        include/model/ResultadoBusqueda.h
+        include/model/DepartamentoaAVL.h
 )
 
 #Se crea una variable que guarda la ruta relativa de la carpeta data

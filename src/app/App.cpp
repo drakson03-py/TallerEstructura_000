@@ -12,7 +12,16 @@ App::App(const string& archivo, System* system)
       system(system),
       datos(nullptr),
       fila(nullptr) {
+    const string nombres[NUM_DEPARTAMENTOS] = {
+                "Urgencia", "Cirugia", "Pediatria", "Cardiologia",
+                "Neurologia", "Traumatologia", "Hospitalizacion", "Medicina General"
+           };
+        for (int i = 0; i < NUM_DEPARTAMENTOS; i++) {
+                departamentos[i].nombre = nombres[i];
+                departamentos[i].arbol = new ArbolAVL<Paciente*>();
+            }
 }
+
 
 void App::run() {
 
@@ -56,8 +65,6 @@ void App::run() {
     system->cargarFila(datos,fila);
     ArbolDecision* arbolDecision = system->buildArbolDecision();
 
-    PrintPaciente print;
-
     string opcion = "";
     while (opcion != "4") {
         cout<<endl
@@ -81,7 +88,7 @@ void App::run() {
             print.datos(p);
             string ruta = "";
             string servicio = arbolDecision->decision(p,&ruta);
-            system->registrarPacienteEnServicio(p,servicio);
+            system->registrarPacienteEnServicio(departamentos, p, servicio);
             cout<<endl<<"Ruta: "<<ruta<<endl<<endl
             <<"Servicio asignado: "<<servicio<<endl;
 
@@ -89,7 +96,8 @@ void App::run() {
 
 
         } else if (opcion == "2") {
-            system->mostrarEstadoDepartamentos();
+            cout << "=== ESTADO DE LOS DEPARTAMENTOS ===" << endl << endl;
+            mostrarEstadoDepartamentos();
             cout << separador;
 
         } else if (opcion == "3") {
@@ -100,7 +108,8 @@ void App::run() {
             getline(cin, query);
 
             cout << "Buscando en AVL..." << endl;
-            system->buscarPaciente(query);
+            ResultadoBusqueda resultado = system->buscarPaciente(departamentos, query);
+            mostrarResultadoBusqueda(resultado);
             cout << separador;
         }
     }
@@ -117,4 +126,59 @@ App::~App() {
     }
     delete datos;
     delete fila;
+    for (int i = 0; i < NUM_DEPARTAMENTOS; i++) {
+        delete departamentos[i].arbol;
+           }
 }
+void App::mostrarResultadoBusqueda(const ResultadoBusqueda& resultado) {
+    if (!resultado.encontrado) {
+        cout << "Paciente no encontrado." << endl;
+        return;
+    }
+
+    Paciente* p = resultado.paciente;
+    cout << "Paciente encontrado:" << endl;
+    cout << "-------" << endl;
+    cout << "ID: " << print.id(p->getId()) << endl;
+    cout << "Nombre: " << p->getNombre() << endl;
+    cout << "Edad: " << p->getEdad() << endl;
+    cout << "Departamento: " << resultado.departamento << endl;
+    cout << "T: " << p->getTemperatura() << " | "
+         << "D: " << p->getDolor() << " | "
+         << "TD: " << p->getTipoDolor() << " | "
+         << "T: " << (p->isTrauma() ? "Si" : "No") << " | "
+         << "SN: " << (p->isSintomasNeurologicos() ? "Si" : "No") << " | "
+         << "RC: " << (p->isRequiereCirugia() ? "Si" : "No") << " | "
+         << "DH: " << (p->getDiasHospitalizacion() == 0 ? "Ninguno" : to_string(p->getDiasHospitalizacion())) << endl;
+    cout << "-------" << endl;
+    cout << "Ruta de busqueda:" << endl;
+    cout << resultado.ruta << endl;
+}
+
+void App::imprimirPacientesInline(NodoAVL<Paciente*>* nodo, bool& primero) {
+    if (nodo != nullptr) {
+        imprimirPacientesInline(nodo->getIzquierdo(), primero);
+
+        if (!primero) cout << ", ";
+        cout << nodo->getDato()->getNombre() << " (" << print.id(nodo->getDato()->getId()) << ")";
+        primero = false;
+
+        imprimirPacientesInline(nodo->getDerecho(), primero);
+    }
+}
+
+void App::mostrarEstadoDepartamentos() {
+    for (int i = 0; i < NUM_DEPARTAMENTOS; i++) {
+        cout << departamentos[i].nombre << endl;
+        if (departamentos[i].arbol->getRaiz() == nullptr) {
+            cout << "Sin pacientes" << endl;
+        } else {
+            cout << "Pacientes: ";
+            bool primero = true;
+            imprimirPacientesInline(departamentos[i].arbol->getRaiz(), primero);
+            cout << endl;
+        }
+        cout << endl;
+    }
+}
+
