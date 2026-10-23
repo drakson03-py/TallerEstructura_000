@@ -81,16 +81,27 @@ void App::run() {
             print.datos(p);
             string ruta = "";
             string servicio = arbolDecision->decision(p,&ruta);
+            system->registrarPacienteEnServicio(p,servicio);
             cout<<endl<<"Ruta: "<<ruta<<endl<<endl
             <<"Servicio asignado: "<<servicio<<endl;
 
 
 
 
-        }else if (opcion == "2") {
+        } else if (opcion == "2") {
+            system->mostrarEstadoDepartamentos();
+            cout << separador;
 
-        }else if (opcion == "3") {
+        } else if (opcion == "3") {
+            cout << "=== BUSCAR PACIENTE ===" << endl;
+            cout << "Indique el ID o Nombre del paciente: ";
+            cin.ignore();
+            string query;
+            getline(cin, query);
 
+            cout << "Buscando en AVL..." << endl;
+            system->buscarPaciente(query);
+            cout << separador;
         }
     }
 

@@ -1,6 +1,117 @@
 
 #include "../../include/services/SystemImpl.h"
 
+SystemImpl::SystemImpl() {
+    departamentos[0] = {"Urgencia", new ArbolAVL<Paciente*>()};
+    departamentos[1] = {"Cirugia", new ArbolAVL<Paciente*>()};
+    departamentos[2] = {"Pediatria", new ArbolAVL<Paciente*>()};
+    departamentos[3] = {"Cardiologia", new ArbolAVL<Paciente*>()};
+    departamentos[4] = {"Neurologia", new ArbolAVL<Paciente*>()};
+    departamentos[5] = {"Traumatologia", new ArbolAVL<Paciente*>()};
+    departamentos[6] = {"Hospitalizacion", new ArbolAVL<Paciente*>()};
+    departamentos[7] = {"Medicina General", new ArbolAVL<Paciente*>()};
+}
+SystemImpl::~SystemImpl() {
+    for (int i = 0; i < 8; i++) {
+        delete departamentos[i].arbol;
+    }
+}
+int SystemImpl::obtenerIndiceDepto(const string& nombre) {
+    for (int i = 0; i < 8; i++) {
+        if (departamentos[i].nombre == nombre) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void SystemImpl::registrarPacienteEnServicio(Paciente* p, const string& servicio) {
+    int idx = obtenerIndiceDepto(servicio);
+    if (idx != -1) {
+        departamentos[idx].arbol->insertar(p);
+    }
+}
+
+void SystemImpl::mostrarPacientesPorServicio(const string& servicio) {
+    int idx = obtenerIndiceDepto(servicio);
+    if (idx != -1) {
+        cout << "\n--- Pacientes en " << servicio << " ---" << endl;
+        departamentos[idx].arbol->mostrarInOrden();
+    } else {
+        cout << "Departamento '" << servicio << "' no encontrado." << endl;
+    }
+}
+
+bool SystemImpl::buscarEnArbolRecursivo(NodoAVL<Paciente*>* nodo, const string& query, string& ruta, Paciente*& pacienteEncontrado) {
+    if (nodo == nullptr) return false;
+
+    // Formatear ID actual para la ruta (ej: "01")
+    string currentIdStr = to_string(nodo->getDato()->getId());
+    if (nodo->getDato()->getId() < 10) currentIdStr = "0" + currentIdStr;
+
+    string rutaActual = ruta + currentIdStr + " ";
+
+    // Verifica si coincide el ID exacto, el ID con 0 a la izquierda, o el Nombre
+    if (to_string(nodo->getDato()->getId()) == query || currentIdStr == query || nodo->getDato()->getNombre() == query) {
+        pacienteEncontrado = nodo->getDato();
+        ruta = rutaActual; // Guarda la ruta final exitosa
+        return true;
+    }
+
+    if (buscarEnArbolRecursivo(nodo->getIzquierdo(), query, rutaActual, pacienteEncontrado)) {
+        ruta = rutaActual;
+        return true;
+    }
+
+    if (buscarEnArbolRecursivo(nodo->getDerecho(), query, rutaActual, pacienteEncontrado)) {
+        ruta = rutaActual;
+        return true;
+    }
+
+    return false;
+}
+
+void SystemImpl::buscarPaciente(const string& query) {
+    bool encontrado = false;
+
+    for (int i = 0; i < 8; i++) {
+        string ruta = "";
+        Paciente* p = nullptr;
+
+        if (buscarEnArbolRecursivo(departamentos[i].arbol->getRaiz(), query, ruta, p)) {
+            cout << "Paciente encontrado:" << endl;
+            cout << "-------" << endl;
+
+            cout << "ID: ";
+            if (p->getId() < 10) cout << "00";
+            else if (p->getId() < 100) cout << "0";
+            cout << p->getId() << endl;
+
+            cout << "Nombre: " << p->getNombre() << endl;
+            cout << "Edad: " << p->getEdad() << endl;
+            cout << "Departamento: " << departamentos[i].nombre << endl;
+            cout << "T: " << p->getTemperatura() << " | "
+                 << "D: " << p->getDolor() << " | "
+                 << "TD: " << p->getTipoDolor() << " | "
+                 << "T: " << (p->isTrauma() ? "Si" : "No") << " | "
+                 << "SN: " << (p->isSintomasNeurologicos() ? "Si" : "No") << " | "
+                 << "RC: " << (p->isRequiereCirugia() ? "Si" : "No") << " | "
+                 << "DH: " << (p->getDiasHospitalizacion() == 0 ? "Ninguno" : to_string(p->getDiasHospitalizacion())) << endl;
+            cout << "-------" << endl;
+            cout << "Ruta de busqueda:" << endl;
+            cout << ruta << endl;
+
+            encontrado = true;
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        cout << "Paciente no encontrado." << endl;
+    }
+}
+
+
 void SystemImpl::cargarFila(List<Paciente *>* datos, Queue<Paciente *>* fila) {
     if (datos == nullptr || fila == nullptr) {
         return;
@@ -11,6 +122,7 @@ void SystemImpl::cargarFila(List<Paciente *>* datos, Queue<Paciente *>* fila) {
     }
 
 }
+
 
 
 
@@ -194,3 +306,38 @@ ArbolDecision* SystemImpl::buildArbolDecision() {
 
     return new ArbolDecision(n1);
 }
+void SystemImpl::imprimirPacientesInline(NodoAVL<Paciente*>* nodo, bool& primero) {
+    if (nodo != nullptr) {
+        imprimirPacientesInline(nodo->getIzquierdo(), primero);
+
+        if (!primero) cout << ", ";
+
+        string idStr = to_string(nodo->getDato()->getId());
+        if (nodo->getDato()->getId() < 10) idStr = "00" + idStr;
+        else if (nodo->getDato()->getId() < 100) idStr = "0" + idStr;
+
+        cout << nodo->getDato()->getNombre() << " (" << idStr << ")";
+        primero = false;
+
+        imprimirPacientesInline(nodo->getDerecho(), primero);
+    }
+}
+
+void SystemImpl::mostrarEstadoDepartamentos() {
+    cout << "=== ESTADO DE LOS DEPARTAMENTOS ===" << endl << endl;
+
+    for (int i = 0; i < 8; i++) {
+        cout << departamentos[i].nombre << endl;
+
+        if (departamentos[i].arbol->getRaiz() == nullptr) {
+            cout << "Sin pacientes" << endl;
+        } else {
+            cout << "Pacientes: ";
+            bool primero = true;
+            imprimirPacientesInline(departamentos[i].arbol->getRaiz(), primero);
+            cout << endl;
+        }
+        cout << endl;
+    }
+}
+
