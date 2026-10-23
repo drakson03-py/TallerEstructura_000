@@ -6,9 +6,20 @@
 
 // Constructor
 template <typename T>
-ArbolAVL<T>::ArbolAVL() {
-    raiz = nullptr;
-}
+ArbolAVL<T>::ArbolAVL(int (*comparador)(T, T)) {
+       raiz = nullptr;
+        this->comparador = comparador;
+    }
+
+template <typename T>
+int ArbolAVL<T>::comparar(T a, T b) {
+      if (comparador != nullptr)
+                return comparador(a, b);
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+    }
+
 
 template<typename T>
 NodoAVL<T> *ArbolAVL<T>::getRaiz() {
@@ -84,30 +95,32 @@ NodoAVL<T>* ArbolAVL<T>::insertarRecursivo(NodoAVL<T>* nodo, T valor) {
     if (nodo == nullptr)
         return new NodoAVL<T>(valor);
 
-    if (valor < nodo->getDato())
-        nodo->setIzquierdo(insertarRecursivo(nodo->getIzquierdo(), valor));
-    else if (valor > nodo->getDato())
-        nodo->setDerecho(insertarRecursivo(nodo->getDerecho(), valor));
-    else
-        return nodo;
+    int cmp = comparar(valor, nodo->getDato());
+        if (cmp < 0) {
+            nodo->setIzquierdo(insertarRecursivo(nodo->getIzquierdo(), valor));
+        }
+       else if (cmp > 0) {
+           nodo->setDerecho(insertarRecursivo(nodo->getDerecho(), valor));
+       }
+       else return nodo;
 
     nodo->setAltura(1 + max(obtenerAltura(nodo->getIzquierdo()), obtenerAltura(nodo->getDerecho())));
 
     int balance = obtenerFactorBalance(nodo);
 
 
-    if (balance > 1 && valor < nodo->getIzquierdo()->getDato())
+    if (balance > 1 && comparar(valor, nodo->getIzquierdo()->getDato()) < 0)
         return rotacionDerecha(nodo);
 
-    if (balance < -1 && valor > nodo->getDerecho()->getDato())
+    if (balance < -1 && comparar(valor, nodo->getDerecho()->getDato()) > 0)
         return rotacionIzquierda(nodo);
 
-    if (balance > 1 && valor > nodo->getIzquierdo()->getDato()) {
+    if (balance > 1 && comparar(valor, nodo->getIzquierdo()->getDato()) > 0) {
         nodo->setIzquierdo(rotacionIzquierda(nodo->getIzquierdo()));
         return rotacionDerecha(nodo);
     }
 
-    if (balance < -1 && valor < nodo->getDerecho()->getDato()) {
+    if (balance < -1 && comparar(valor, nodo->getDerecho()->getDato()) < 0) {
         nodo->setDerecho(rotacionDerecha(nodo->getDerecho()));
         return rotacionIzquierda(nodo);
     }

@@ -12,6 +12,10 @@ using namespace std;
 
 const int NUM_DEPARTAMENTOS = 8;
 
+inline int compararPacientesPorId(Paciente* a, Paciente* b) {
+    return a->getId() - b->getId();
+}
+
 struct DepartamentoAVL {
     string nombre;
     ArbolAVL<Paciente*>* arbol;

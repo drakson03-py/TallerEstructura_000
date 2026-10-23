@@ -18,8 +18,7 @@ App::App(const string& archivo, System* system)
            };
         for (int i = 0; i < NUM_DEPARTAMENTOS; i++) {
                 departamentos[i].nombre = nombres[i];
-                departamentos[i].arbol = new ArbolAVL<Paciente*>();
-            }
+                departamentos[i].arbol = new ArbolAVL<Paciente*>(compararPacientesPorId);            }
 }
 
 

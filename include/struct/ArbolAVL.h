@@ -12,11 +12,11 @@ template <typename T>
 class ArbolAVL {
 private:
     NodoAVL<T>* raiz;
-
+    int (*comparador)(T, T);
     int obtenerAltura(NodoAVL<T>* nodo);
     int obtenerFactorBalance(NodoAVL<T>* nodo);
     int max(int a, int b);
-
+    int comparar(T a, T b);
     NodoAVL<T>* rotacionDerecha(NodoAVL<T>* y);
     NodoAVL<T>* rotacionIzquierda(NodoAVL<T>* x);
 
@@ -28,7 +28,7 @@ private:
     void postOrdenRecursivo(NodoAVL<T>* nodo);
 
 public:
-    ArbolAVL();
+    ArbolAVL(int (*comparador)(T, T) = nullptr);
     ~ArbolAVL();
 
     NodoAVL<T>* getRaiz();
