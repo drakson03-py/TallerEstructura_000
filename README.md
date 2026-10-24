@@ -56,7 +56,7 @@ Para modificar los pacientes o utilizar otro archivo:
 - **Campos booleanos:** deben representarse exclusivamente con `0` o `1`.
 - **Tipo de dolor:** debe coincidir con una de las opciones permitidas.
 - **Presión arterial:** debe ingresarse los valores numericos en el formato `###.###`, respetando el punto como separador entre la presión sistólica y la diastólica.
-- **Separación de campos:** se debe utilizar el caracter separador punto y coma (';').
+- **Separación de campos:** se debe utilizar el caracter separador punto y coma ( `;`).
 
 **Ejemplo:**
    ```bash
