@@ -12,8 +12,8 @@ Aclaraciones
 - Se requiere CMake 4.0.2 o superior
 - Se requiere un compilador compatible con C++20
 
-Otro
-- cd /workspaces/TallerEstructura_000
+Ejecución simple:
+- Crear codespace on master en github
 - python3 -m pip install --user cmake==4.0.2
 - rm -rf build
 - cmake -S . -B build
@@ -21,51 +21,49 @@ Otro
 - ./build/TallerEstruct
 
 # Ejecución de TallerEstructura_000 en GitHub Codespaces
-
-1. Entrar al repositorio [https://github.com/drakson03-py/TallerEstructura_000](https://github.com/drakson03-py/TallerEstructura_000).
-2. Seleccionar la rama `master`.
-3. Pulsar `<> Code` → `Codespaces` → `Create codespace on master`.
-4. Esperar a que cargue VS Code.
-5. Abrir `Terminal` → `New Terminal`.
-6. Ejecutar:
-   ```
+1. Seleccionar la rama `master`.
+2. Pulsar `<> Code` → `Codespaces` → `Create codespace on master`.
+3. Esperar a que cargue VS Code.
+4. Abrir `Terminal` → `New Terminal`.
+5. Ejecutar:
+   ```bash
    pwd
    ```
    Comprobar que la ruta sea `/workspaces/TallerEstructura_000`. Si no, ejecutar:
-   ```
+   ```bash
    cd /workspaces/TallerEstructura_000
    ```
-7. Ejecutar:
-   ```
+6. Ejecutar:
+   ```bash
    cmake --version
    ```
    Comprobar que la versión sea 4.0.2 o superior. Si no, ejecutar:
-   ```
+   ```bash
    python3 -m pip install --user cmake==4.0.2
    ```
    Si aparece un error por restricciones de Python, configurar un entorno virtual para instalar CMake y comprobar nuevamente la versión.
-8. Ejecutar:
-   ```
+7. Ejecutar:
+   ```bash
    ls
    ```
    Comprobar que existan `CMakeLists.txt`, `README.md`, `data`, `include`, `main.cpp` y `src`. Si falta alguno, comprobar la ruta actual y que se haya seleccionado el repositorio y la rama correctos.
-9. Ejecutar:
-   ```
+8. Ejecutar:
+   ```bash
    rm -rf build
    ```
    Eliminar los archivos de compilación anteriores.
+9. Ejecutar:
+   ```bash
+   cmake -S . -B build
+   ```
+   Configurar el proyecto.
 10. Ejecutar:
-    ```
-    cmake -S . -B build
-    ```
-    Configurar el proyecto.
-11. Ejecutar:
-    ```
+    ```bash
     cmake --build build -j2
     ```
     Compilar el proyecto.
-12. Ejecutar:
-    ```
+11. Ejecutar:
+    ```bash
     ./build/TallerEstruct
     ```
     Iniciar el programa desde la terminal.
