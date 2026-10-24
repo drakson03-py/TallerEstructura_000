@@ -56,13 +56,14 @@ Para modificar los pacientes o utilizar otro archivo:
 - **Campos booleanos:** deben representarse exclusivamente con `0` o `1`.
 - **Tipo de dolor:** debe coincidir con una de las opciones permitidas.
 - **Presión arterial:** debe ingresarse los valores numericos en el formato `###.###`, respetando el punto como separador entre la presión sistólica y la diastólica.
+
 **Ejemplo:**
    ```bash
    001;Sebastian Miranda;23;36.5;120.080;6;cabeza;0;0;0;1
    ```
 **Forma General:**
    ```bash
-   id;nombre;edad;temperatura;presion arterial;dolor;tipo dolor;traum;sintomas neurologicos;requiere cirugia;dias hospitalizacion
+   id;nombre;edad;temperatura;presionArterial;dolor;tipoDolor;trauma;sintomasNeurologicos;requiereCirugia;diasHospitalizacion
    ```
 
 ## 4. Compilación y ejecución
