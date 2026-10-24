@@ -1,6 +1,7 @@
 
 #include "List.h"
 
+
 template<class T>
 List<T>::List():start(nullptr),size(0) {
 }
@@ -12,14 +13,13 @@ bool List<T>::isEmpty() {
 
 template<class T>
 void List<T>::insert(T value, int index) {
-    if (index < 0 || this -> isEmpty()) throw nullptr;
-    if (index - 1 < 0) {
-        this->insertFirst(value);
+    if (index < 0 || index > size) throw nullptr;
+    if (index == 0) {
+        insertFirst(value);
         return;
     }
     Node<T>* cur = start;
-    for (int i = 0; i<index - 1;i++) {
-        if (cur ->getNext() == nullptr) throw nullptr;
+    for (int i = 0; i < index - 1; i++) {
         cur = cur->getNext();
     }
     Node<T>* n = new Node<T>(value);
@@ -31,13 +31,12 @@ void List<T>::insert(T value, int index) {
 template<class T>
 void List<T>::insertFirst(T value) {
     Node<T>* n = new Node<T>(value);
-    if (this -> isEmpty()) {
+    if (!this -> start) {
         this -> start = n;
-        size++;
-        return;
+    }else {
+        n->setNext(start);
+        this -> start = n;
     }
-    n->setNext(start);
-    this -> start = n;
     size++;
 }
 
@@ -59,10 +58,9 @@ void List<T>::insertLast(T value) {
 
 template<class T>
 T List<T>::get(int index) {
-    if (index < 0 || this->isEmpty())throw nullptr;
-    Node<T>* cur = this-> start;
-    for (int i=0 ; i < index ; i++) {
-        if (cur->getNext() == nullptr) throw nullptr;
+    if (index < 0 || index >= size) throw nullptr;
+    Node<T>* cur = start;
+    for (int i = 0; i < index; i++) {
         cur = cur->getNext();
     }
     return cur->getValue();
@@ -94,25 +92,27 @@ int List<T>::getSize() {
 
 template<class T>
 void List<T>::remove(int index) {
-    if (index < 0 || this -> isEmpty()) throw nullptr;
+    if (index < 0 || index >= size) throw nullptr;
 
-   if (index == 0) {
-        Node<T>* targetRemove = this->start;
-        this -> start = this -> start -> getNext();
+    if (index == 0) {
+        Node<T>* targetRemove = start;
+        start = start->getNext();
         delete targetRemove;
         size--;
         return;
     }
+
     Node<T>* cur = start;
-    for (int i=0; i<index-1 ; i++) {
-        if (cur->getNext() == nullptr) throw nullptr;
+
+    for (int i = 0; i < index - 1; i++) {
         cur = cur->getNext();
     }
-    Node<T>* targetRemove = cur ->getNext();
-    cur -> setNext(targetRemove -> getNext());
+
+    Node<T>* targetRemove = cur->getNext();
+    cur->setNext(targetRemove->getNext());
+
     delete targetRemove;
     size--;
-
 }
 
 template<class T>
@@ -122,6 +122,7 @@ void List<T>::clear() {
         start = start->getNext();
         delete cur;
     }
+    this->size = 0;
 }
 
 

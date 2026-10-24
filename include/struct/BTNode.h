@@ -1,10 +1,5 @@
-
-//
-// Created by seba2 on 21-10-2026.
-//
-
-#ifndef TALLERESTRUCT_BTNODE_H
-#define TALLERESTRUCT_BTNODE_H
+#ifndef REMAKE_TALLER2_BTNODE_H
+#define REMAKE_TALLER2_BTNODE_H
 
 /**
  * @brief Representa un nodo de un arbol binario.
@@ -33,21 +28,21 @@ public:
      *
      * @return Copia del valor almacenado.
      */
-    T getValue();
+    T getValue() const;
 
     /**
      * @brief Obtiene el hijo izquierdo del nodo.
      *
      * @return Puntero al hijo izquierdo, o nullptr si no existe.
      */
-    BTNode* getLeft();
+    BTNode* getLeft() const;
 
     /**
      * @brief Obtiene el hijo derecho del nodo.
      *
      * @return Puntero al hijo derecho, o nullptr si no existe.
      */
-    BTNode* getRight();
+    BTNode* getRight() const;
 
     /**
      * @brief Establece el hijo izquierdo del nodo.
@@ -71,4 +66,4 @@ public:
 
 #include "BTNode.tpp"
 
-#endif // TALLERESTRUCT_BTNODE_H
+#endif // REMAKE_TALLER2_BTNODE_H

@@ -5,63 +5,54 @@
 #include <sstream>
 #include <filesystem>
 #include "../../include/utils/FilePaciente.h"
+#include "../../include/struct/BTNode.h""
 
-FilePaciente::FilePaciente(const string& file):file(file),ids(new List<int>()),archivoValido(false){}
+FilePaciente::FilePaciente(const string& file):file(file){}
 
-int FilePaciente::leerArchivo() {
-    delete ids;
-    ids = new List<int>();
-    archivoValido = false;
+int FilePaciente::leerArchivo(List<Paciente*>* datos, string* error) {
 
     filesystem::path data_dir = DATA_DIR;
     ifstream archivo(data_dir / this->file);//Accede al archivo de la carpeta data
     if (!archivo.is_open()) {
+        *error = "Archivo "+this->file+" no encontrado";
         return 1;
     }
-
+    int aux = 0;
+    List<int> lista;
+    int nLine = 1;
     string linea;
     while (getline(archivo, linea)) {
         //Lee el archivo
         stringstream ss(linea);//Lee una linea
         if (!this->isLineaValida(ss)) {
             archivo.close();
-            return 2;
+            *error = "Linea ["+ to_string(nLine)+"] del archivo no valida: "+linea;
+            aux = 2;
+            break;
         }
         string id_str;
         getline(ss,id_str,';' );
         int id = stoi(id_str);
 
-        if (isPacienteRepetido(id)) {
-            archivo.close();
-            return 3;
+        if (lista.isEmpty()) {
+            lista.insertFirst(id);
+        } else {
+            if (isPacienteRepetido(&lista, id, 0, lista.getSize() - 1)) {
+                archivo.close();
+                aux = 3;
+                *error = "ID ["+to_string(id)+"] repetido en la linea ["+to_string(nLine)+"]: "+linea;
+                break;
+            }
+            int i = 0;
+            while (i < lista.getSize() && lista.get(i) < id) {
+                i++;
+            }
+            lista.insert(id, i);
         }
-        ids->insertLast(id);
-    }
-    archivo.close();
-    archivoValido = true;
-    return 0;
-}
+        nLine++;
 
-bool FilePaciente::cargarArchivo(List<Paciente *> *datos) {
-    if (!archivoValido || datos == nullptr) {
-        return false;
-    }
+        string nombre, str_edad, str_temperatura, str_presion, str_dolor, tipoDolor, str_trauma, str_sintomasNeuro, str_cirugia, str_dias;
 
-    filesystem::path data_dir = DATA_DIR;
-    ifstream archivo(data_dir / file);
-
-    if (!archivo.is_open()) {
-        archivoValido = false;
-        return false;
-    }
-
-    string linea;
-    while (getline(archivo, linea)) {
-        //Lee el archivo
-        stringstream ss(linea);//Lee una linea
-        string str_id, nombre, str_edad, str_temperatura, str_presion, str_dolor, tipoDolor, str_trauma, str_sintomasNeuro, str_cirugia, str_dias;
-
-        getline(ss, str_id, ';');
         getline(ss, nombre, ';');
         getline(ss, str_edad, ';');
         getline(ss, str_temperatura, ';');
@@ -74,7 +65,7 @@ bool FilePaciente::cargarArchivo(List<Paciente *> *datos) {
         getline(ss, str_dias, ';');
 
         Paciente* p = new Paciente(
-        stoi(str_id),
+        id,
         nombre,
         stoi(str_edad),
         stof(str_temperatura),
@@ -86,20 +77,34 @@ bool FilePaciente::cargarArchivo(List<Paciente *> *datos) {
         str_cirugia != "0",
         stoi(str_dias)
         );
-
         datos->insertLast(p);
     }
     archivo.close();
-    return true;
+    if (aux != 0) {
+        for (int i = 0; i < datos->getSize(); i++) {
+            delete datos->get(0);
+            datos->remove(0);
+        }
+    }
+    return aux;
 }
 
-
-bool FilePaciente::isPacienteRepetido(int id) {
-    for (int i = 0; i < ids->getSize(); i++) {
-        if (ids->get(i) == id){return true;}
+bool FilePaciente::isPacienteRepetido(List<int>* lista, int id, int inicio, int fin) {
+    if (inicio > fin) {
+        return false;
     }
-    return false;
+    int mitad = inicio + (fin - inicio) / 2;
+    int actual = lista->get(mitad);
 
+    if (actual == id) {
+        return true;
+    }
+
+    if (id < actual) {
+        return isPacienteRepetido(lista, id, inicio, mitad - 1);
+    }
+
+    return isPacienteRepetido(lista, id, mitad + 1, fin);
 }
 
 bool FilePaciente::isLineaValida(stringstream& ss) {
@@ -199,5 +204,5 @@ bool FilePaciente::isNumeroEntero(string num) {
 }
 
 FilePaciente::~FilePaciente() {
-    delete ids;
+
 }

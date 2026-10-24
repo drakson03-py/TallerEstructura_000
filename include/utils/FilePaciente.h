@@ -8,6 +8,7 @@
 
 #include "../model/Paciente.h"
 #include "../struct/List.h"
+#include "../struct/Queue.h"
 
 /**
  * @brief Lee y valida registros de pacientes desde un archivo.
@@ -19,17 +20,17 @@
  */
 class FilePaciente {
 private:
-    List<int>* ids;
     string file;
-    bool archivoValido;
-
     /**
      * @brief Comprueba si un identificador ya fue registrado.
      *
+     * @param lista Lista con los identificadores de los pacientes registrados.
      * @param id Identificador del paciente que se desea comprobar.
+     * @param inicio Posicion de inicio de la lista
+     * @param fin Posicion del final de la lista
      * @return true si el identificador esta repetido; false en caso contrario.
      */
-    bool isPacienteRepetido(int id);
+    bool isPacienteRepetido(List<int> *lista, int id, int inicio, int fin);
 
     /**
      * @brief Valida la estructura y el contenido de una linea del archivo.
@@ -106,34 +107,20 @@ public:
     FilePaciente(const string& archivo);
 
     /**
-     * @brief Lee y valida el archivo de pacientes.
+     * @brief Carga el archivo a una lista de pacientes solo si el archivo esta en formato.
      *
-     * Reinicia la lista de identificadores, abre el archivo indicado y valida
-     * cada registro. Durante la lectura, comprueba que las lineas sean validas
-     * y que no existan identificadores repetidos.
+     * Abre el archivo indicado y valida cada registro. Durante la lectura,
+     * comprueba que las lineas sean validas y que no existan pacientes repetidos.
      *
+     * @param datos lista de pacientes.
+     * @param error entrega nullptr si no hay errores, caso contrario entrega la linea de error.
      * @return Codigo del resultado de la operacion:
      *         - 0: El archivo se leyo correctamente y todos sus registros son validos.
      *         - 1: No se pudo abrir el archivo.
      *         - 2: Se encontro una linea con formato o datos invalidos.
      *         - 3: Se encontro un identificador de paciente repetido.
      */
-    int leerArchivo();
-
-    /**
-     * @brief Carga los pacientes del archivo en una lista.
-     *
-     * Comprueba que el archivo haya sido validado previamente y que la lista
-     * de destino no sea nula. Luego abre el archivo, lee los datos de cada
-     * paciente, crea sus objetos y los inserta en la lista.
-     *
-     * @param datos Lista donde se almacenaran los pacientes leidos.
-     *
-     * @return true si todos los registros se cargan correctamente en la lista;
-     *         false si el archivo no fue validado previamente, la lista es nula
-     *         o no se puede abrir el archivo.
-     */
-    bool cargarArchivo(List<Paciente*>* datos);
+    int leerArchivo(List<Paciente*>* datos, string* error = nullptr);
 
     /**
      * @brief Libera los recursos administrados por el lector de archivos.

@@ -6,7 +6,8 @@
 #ifndef TALLERESTRUCT_SYSTEM_H
 #define TALLERESTRUCT_SYSTEM_H
 
-#include "../struct/Struct.h"
+#include "../struct/List.h"
+#include "../struct/Queue.h"
 #include "../model/Paciente.h"
 #include "../model/ArbolDecision.h"
 #include "../model/DepartamentoaAVL.h"
@@ -37,7 +38,7 @@ public:
      *
      * @param arbol Puntero al arbol de decision que se debe construir.
      */
-    virtual void buildArbolDecision(ArbolDecision* arbol) = 0;
+    virtual ArbolDecision *buildArbolDecision() = 0;
 
 
     virtual void registrarPacienteEnServicio(

@@ -6,6 +6,8 @@
 #define TALLERESTRUCT_SYSTEMIMPL_H
 
 #include "System.h"
+#include "../struct/List.h"
+#include "../struct/Queue.h"
 
 /**
  * @brief Implementa las operaciones de gestion y derivacion de pacientes.
@@ -29,7 +31,8 @@ private:
 public:
 
     void cargarFila(List<Paciente*>* datos, Queue<Paciente*>* fila) override;
-    void buildArbolDecision(ArbolDecision* arbol) override;
+
+    ArbolDecision *buildArbolDecision() override;
 
     void registrarPacienteEnServicio(
         DepartamentoAVL* departamentos,

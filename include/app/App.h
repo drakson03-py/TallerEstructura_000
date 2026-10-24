@@ -13,8 +13,6 @@ class App {
 private:
     string archivo;
     System* system;
-    List<Paciente*>* datos;
-    Queue<Paciente*>* fila;
 
     DepartamentoAVL departamentos[NUM_DEPARTAMENTOS];
     PrintPaciente print;

@@ -3,14 +3,13 @@
 //
 
 #include "../../include/app/App.h"
-#include "../../include/utils/Utils.h"
+#include "../../include/utils/FilePaciente.h"
+#include "../../include/utils/PrintPaciente.h"
 #include "../../include/model/ArbolDecision.h"
 
 App::App(const string& archivo, System* system)
     : archivo(archivo),
-      system(system),
-      datos(nullptr),
-      fila(nullptr) {
+      system(system){
     const string nombres[NUM_DEPARTAMENTOS] = {
                 "Urgencia", "Cirugia", "Pediatria", "Cardiologia",
                 "Neurologia", "Traumatologia", "Hospitalizacion", "Medicina General"
@@ -31,38 +30,37 @@ void App::run() {
     }
 
     FilePaciente* file = new FilePaciente(this->archivo);
-    int lectura = file->leerArchivo();
+    string error;
+    List<Paciente*>* datos = new List<Paciente*>();
+    int lectura = file->leerArchivo(datos, &error);
+    delete file;
     if (lectura != 0) {
-        if (lectura == 1) {
-            cout<<"ERROR: Archivo no encontrado"<<endl
+        switch (lectura) {
+            case 1:
+                cout<<"ERROR: "<<error<<endl
             <<separador;
-        }else if (lectura == 2) {
-            cout<<"ERROR: Archivo no valido -> Linea no valida"<<endl
+                break;
+            case 2:
+                cout<<"ERROR: "<<error<<endl
             <<separador;
-        }else if (lectura == 3) {
-            cout<<"ERROR: Archivo no valido -> Paciente duplicado"<<endl
+                break;
+            case 3:
+                cout<<"ERROR: "<<error<<endl
             <<separador;
+                break;
+            default:
+                break;
         }
-        delete file;
+        delete datos;
         return;
     }
     cout<<"Lectura del archivo realizada con exito.."<<endl;
-
-    datos = new List<Paciente*>();
-    bool cargaValida = file->cargarArchivo(datos);
-    delete file;
-    if (!cargaValida) {
-        cout<<"ERROR: Fallo en la carga de datos"<<endl
-        <<separador;
-        return;
-    }
     cout<<"Cargando datos.."<<endl;
 
-
-    fila = new Queue<Paciente*>();
+    Queue<Paciente*>* fila = new Queue<Paciente*>();
     system->cargarFila(datos,fila);
-    ArbolDecision* arbolDecision = new ArbolDecision();
-    system->buildArbolDecision(arbolDecision);
+    ArbolDecision* arbolDecision = system->buildArbolDecision();
+
 
     string opcion = "";
     while (opcion != "4") {
@@ -111,17 +109,15 @@ void App::run() {
         }
     }
     delete arbolDecision;
+    for (int i = 0; i < datos->getSize(); i++) {
+        delete datos->get(0);
+        datos->remove(0);
+    }
+    delete fila;
     cout<<endl<<"Finalizando programa...";
 }
 
 App::~App() {
-    if (datos != nullptr) {
-        for (int i = 0; i < datos->getSize(); i++) {
-            delete datos->get(i);
-        }
-    }
-    delete datos;
-    delete fila;
     for (int i = 0; i < NUM_DEPARTAMENTOS; i++) {
         delete departamentos[i].arbol;
            }

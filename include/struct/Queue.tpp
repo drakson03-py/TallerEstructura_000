@@ -7,12 +7,15 @@ Queue<T>::Queue() {
 }
 
 template<class T>
-Queue<T>::Queue(const Queue& q) {
-    this-> first = nullptr;
+Queue<T>::Queue(const Queue<T>& q):first(nullptr) {
+    if (q.first == nullptr){return;}
+    this->first = new Node<T>(q.first->getValue());
     Node<T>* cur = q.first;
-    while (cur) {
-        this->push(cur->getValue());
-        cur = cur->getNext();
+    Node<T>* curCopy = this->first;
+    while (cur->getNext()) {
+        cur = cur -> getNext();
+        curCopy -> setNext(new Node<T>(cur->getValue()));
+        curCopy = curCopy->getNext();
     }
 }
 

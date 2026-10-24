@@ -76,7 +76,7 @@ void SystemImpl::cargarFila(List<Paciente *>* datos, Queue<Paciente *>* fila) {
 }
 
 
-void SystemImpl::buildArbolDecision(ArbolDecision* arbol) {
+ArbolDecision *SystemImpl::buildArbolDecision() {
 
     // Hojas de Urgencia.
     Condicion urgencia1; urgencia1.servicio = "Urgencia";
@@ -254,11 +254,7 @@ void SystemImpl::buildArbolDecision(ArbolDecision* arbol) {
     n15->setRight(hojaMedicinaGeneral3);
 
     // Asignar la raíz al árbol existente.
-    if (arbol == nullptr) {
-        arbol = new ArbolDecision(n1);
-    }else {
-        arbol->setRaiz(n1);
-    }
+    return new ArbolDecision(n1);
 }
 
 

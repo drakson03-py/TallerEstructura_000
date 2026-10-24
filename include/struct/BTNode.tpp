@@ -1,36 +1,37 @@
-//
-// Created by seba2 on 21-10-2026.
-//
 
 #include "BTNode.h"
 
 template<class T>
-BTNode<T>::BTNode(T value):value(value),left(nullptr),right(nullptr) {}
+BTNode<T>::BTNode(T value)
+    : value(value), left(nullptr), right(nullptr) {}
 
 template<class T>
-T BTNode<T>::getValue()  {
+T BTNode<T>::getValue() const{
     return this->value;
 }
 
 template<class T>
-BTNode<T>* BTNode<T>::getLeft() {
+BTNode<T>* BTNode<T>::getLeft() const{
     return this->left;
 }
 
 template<class T>
-BTNode<T>* BTNode<T>::getRight()  {
+BTNode<T>* BTNode<T>::getRight() const{
     return this->right;
 }
 
+
 template<class T>
-void BTNode<T>::setLeft(BTNode* left) {
+void BTNode<T>::setLeft(BTNode<T>* left) {
     this->left = left;
 }
 
 template<class T>
-void BTNode<T>::setRight(BTNode* right) {
+void BTNode<T>::setRight(BTNode<T>* right) {
     this->right = right;
 }
 
 template<class T>
-BTNode<T>::~BTNode()=default;
+BTNode<T>::~BTNode() = default;
+
+

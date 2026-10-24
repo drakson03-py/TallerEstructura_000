@@ -4,6 +4,7 @@
 
 template<class T>
 Stack<T>::Stack(): last(nullptr){}
+
 template <class T>
 Stack<T>::Stack(const Stack& s):last(nullptr) {
     Node<T>* cur = s.last;
@@ -12,8 +13,9 @@ Stack<T>::Stack(const Stack& s):last(nullptr) {
     Node<T>* curCopy = this -> last;
 
     while (cur->getNext()) {
-        curCopy -> setNext(new Node(cur -> getNext()->getValue()));
         cur = cur ->getNext();
+        curCopy -> setNext(new Node<T>(cur->getValue()));
+        curCopy = curCopy-> getNext();
     }
 }
 

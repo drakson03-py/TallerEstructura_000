@@ -138,10 +138,6 @@ private:
     void liberar();
 
 public:
-    /**
-     * @brief Construye un arbol de decision vacio.
-     */
-    ArbolDecision();
 
     /**
      * @brief Construye un arbol de decision con una raiz inicial.
@@ -149,14 +145,6 @@ public:
      * @param raiz Puntero al nodo que sera la raiz del arbol.
      */
     ArbolDecision(BTNode<Condicion>* raiz);
-
-    /**
-     * @brief Reemplaza la raiz del arbol.
-     *
-     * @param raiz Puntero al nuevo nodo raiz.
-     */
-    void setRaiz(BTNode<Condicion>* raiz);
-
 
     /**
      * @brief Destruye el arbol y libera sus nodos.

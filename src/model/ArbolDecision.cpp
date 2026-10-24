@@ -4,7 +4,7 @@
 
 #include "../../include/model/ArbolDecision.h"
 #include "../../include/struct/Stack.h"
-ArbolDecision::ArbolDecision():raiz(nullptr) {}
+
 ArbolDecision::ArbolDecision(BTNode<Condicion>* raiz):raiz(raiz){}
 
 
@@ -111,14 +111,6 @@ void ArbolDecision::liberar() {
 
     raiz = nullptr;
 
-}
-void ArbolDecision::setRaiz(BTNode<Condicion>* raiz) {
-    if (this->raiz == nullptr) {
-        this->raiz = raiz;
-        return;
-    }
-    this->liberar();
-    this->raiz = raiz;
 }
 
 ArbolDecision::~ArbolDecision() {

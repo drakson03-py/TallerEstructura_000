@@ -9,9 +9,6 @@ add_executable(TallerEstruct main.cpp
         include/struct/Queue.tpp
         include/struct/Stack.h
         include/struct/Stack.tpp
-        include/struct/Struct.h
-        include/services/Services.h
-        include/model/Model.h
         src/model/Paciente.cpp
         include/model/Paciente.h
         include/services/System.h
@@ -23,7 +20,6 @@ add_executable(TallerEstruct main.cpp
         include/utils/FilePaciente.h
         src/utils/PrintPaciente.cpp
         include/utils/PrintPaciente.h
-        include/utils/Utils.h
         include/struct/NodeAVL.h
         include/struct/NodeAVL.tpp
         include/struct/BTNode.h
