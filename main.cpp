@@ -6,8 +6,7 @@ using namespace std;
 
 #include "include/services/Services.h"
 #include "include/app/App.h"
-#include "include/utils/FilePaciente.h"
-#include "include/struct/ArbolAVL.h"
+
 
 int main(){
 

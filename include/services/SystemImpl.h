@@ -13,7 +13,7 @@ private:
 public:
     void cargarFila(List<Paciente *>* datos, Queue<Paciente *>* fila) override;
 
-    ArbolDecision* buildArbolDecision() override;
+    void buildArbolDecision(ArbolDecision* arbol) override;
 
     void registrarPacienteEnServicio(DepartamentoAVL* departamentos, Paciente* p, const string& servicio) override;
     ResultadoBusqueda buscarPaciente(DepartamentoAVL* departamentos, const string& query) override;

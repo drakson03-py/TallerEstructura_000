@@ -18,7 +18,7 @@ using namespace std;
 class System {
 public:
     virtual void cargarFila(List<Paciente*>* datos, Queue<Paciente*>* fila) = 0;
-    virtual ArbolDecision* buildArbolDecision() = 0;
+    virtual void buildArbolDecision(ArbolDecision* arbol) = 0;
 
     virtual void registrarPacienteEnServicio(DepartamentoAVL* departamentos, Paciente* p, const string& servicio) = 0;
     virtual ResultadoBusqueda buscarPaciente(DepartamentoAVL* departamentos, const string& query) = 0;

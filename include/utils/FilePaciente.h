@@ -7,8 +7,7 @@
 
 #include "../model/Paciente.h"
 #include "../struct/List.h"
-#include <iostream>
-using namespace std;
+
 
 class FilePaciente {
 private:

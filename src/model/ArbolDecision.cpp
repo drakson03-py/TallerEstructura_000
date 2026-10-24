@@ -24,7 +24,7 @@ bool ArbolDecision::cumpleCondicion(Paciente *p, BTNode<Condicion> *node, string
             }
             break;
         case Atributo::PRESION_DIASTOLE:
-            for (int i = 4; i <= 7; i++) {
+            for (int i = 4; i < 7; i++) {
                 atributo = atributo + p->getPresionArterial()[i];
             }
             break;
@@ -79,24 +79,9 @@ string ArbolDecision::decision(Paciente *paciente,string* ruta) {
 
 
 void ArbolDecision::liberar() {
-
-}
-void ArbolDecision::setRaiz(BTNode<Condicion>* raiz) {
-    if (this->raiz) {
-        return;
-    }
-    this->raiz = raiz;
-}
-
-int ArbolDecision::altura() {
-    return 0;
-}
-
-ArbolDecision::~ArbolDecision() {
     if (raiz == nullptr) {
         return;
     }
-
     Stack<BTNode<Condicion>*> pila;
     Stack<BTNode<Condicion>*> pilaAux;
 
@@ -125,6 +110,22 @@ ArbolDecision::~ArbolDecision() {
     }
 
     raiz = nullptr;
+
+}
+void ArbolDecision::setRaiz(BTNode<Condicion>* raiz) {
+    if (this->raiz == nullptr) {
+        this->raiz = raiz;
+        return;
+    }
+    this->liberar();
+    this->raiz = raiz;
+}
+
+ArbolDecision::~ArbolDecision() {
+    if (raiz == nullptr) {
+        return;
+    }
+    this->liberar();
 }
 
 

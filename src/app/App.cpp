@@ -62,7 +62,8 @@ void App::run() {
 
     fila = new Queue<Paciente*>();
     system->cargarFila(datos,fila);
-    ArbolDecision* arbolDecision = system->buildArbolDecision();
+    ArbolDecision* arbolDecision = new ArbolDecision();
+    system->buildArbolDecision(arbolDecision);
 
     string opcion = "";
     while (opcion != "4") {
@@ -83,16 +84,14 @@ void App::run() {
                 cout<<separador;
                 continue;
             }
-            Paciente* p = fila->front();fila->pop();
+            Paciente* p = fila->front();
+            fila->pop();
             print.datos(p);
             string ruta = "";
             string servicio = arbolDecision->decision(p,&ruta);
             system->registrarPacienteEnServicio(departamentos, p, servicio);
             cout<<endl<<"Ruta: "<<ruta<<endl<<endl
             <<"Servicio asignado: "<<servicio<<endl;
-
-
-
 
         } else if (opcion == "2") {
             cout << "=== ESTADO DE LOS DEPARTAMENTOS ===" << endl << endl;
@@ -112,7 +111,6 @@ void App::run() {
             cout << separador;
         }
     }
-
     delete arbolDecision;
     cout<<endl<<"Finalizando programa...";
 }
@@ -136,19 +134,11 @@ void App::mostrarResultadoBusqueda(const ResultadoBusqueda& resultado) {
     }
 
     Paciente* p = resultado.paciente;
+    PrintPaciente print;
     cout << "Paciente encontrado:" << endl;
     cout << "-------" << endl;
-    cout << "ID: " << print.id(p->getId()) << endl;
-    cout << "Nombre: " << p->getNombre() << endl;
-    cout << "Edad: " << p->getEdad() << endl;
+    print.datos(p);
     cout << "Departamento: " << resultado.departamento << endl;
-    cout << "T: " << p->getTemperatura() << " | "
-         << "D: " << p->getDolor() << " | "
-         << "TD: " << p->getTipoDolor() << " | "
-         << "T: " << (p->isTrauma() ? "Si" : "No") << " | "
-         << "SN: " << (p->isSintomasNeurologicos() ? "Si" : "No") << " | "
-         << "RC: " << (p->isRequiereCirugia() ? "Si" : "No") << " | "
-         << "DH: " << (p->getDiasHospitalizacion() == 0 ? "Ninguno" : to_string(p->getDiasHospitalizacion())) << endl;
     cout << "-------" << endl;
     cout << "Ruta de busqueda:" << endl;
     cout << resultado.ruta << endl;
