@@ -10,7 +10,7 @@ using namespace std;
 
 int main(){
 
-    string archivo = "Test.txt";
+    string archivo = "Pacientes.txt";
     System* system = new SystemImpl();
     App* app = new App(archivo, system);
     app->run();

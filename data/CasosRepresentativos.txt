@@ -1,0 +1,18 @@
+001;Urgencia por dolor intenso;35;37.0;120.080;8;otro;0;0;0;0
+002;Urgencia por presion sistolica elevada;35;37.0;180.080;7;otro;0;0;0;0
+003;Urgencia por presion diastolica elevada;35;37.0;120.120;7;otro;0;0;0;0
+004;Urgencia por temperatura baja;35;34.9;120.080;7;otro;0;0;0;0
+005;Urgencia por temperatura alta;35;40.1;120.080;7;otro;0;0;0;0
+006;Derivacion a Pediatria;17;37.0;120.080;7;otro;0;0;0;0
+007;Derivacion a Cirugia;35;37.0;120.080;7;otro;0;0;1;0
+008;Dolor de pecho a Cardiologia;35;37.0;120.080;7;pecho;0;0;0;0
+009;Dolor de cabeza con sintomas neurologicos;35;37.0;120.080;7;cabeza;0;1;0;0
+010;Dolor de cabeza con hospitalizacion;35;37.0;120.080;7;cabeza;0;0;0;2
+011;Dolor de cabeza a Medicina General;35;37.0;120.080;7;cabeza;0;0;0;1
+012;Dolor de extremidad con trauma;35;37.0;120.080;7;extremidad;1;0;0;0
+013;Dolor de extremidad sin trauma con hospitalizacion;35;37.0;120.080;7;extremidad;0;0;0;2
+014;Dolor de extremidad sin trauma a Medicina General;35;37.0;120.080;7;extremidad;0;0;0;1
+015;Dolor abdominal con hospitalizacion;35;37.0;120.080;7;abdomen;0;0;0;2
+016;Dolor abdominal a Medicina General;35;37.0;120.080;7;abdomen;0;0;0;1
+017;Otro dolor con hospitalizacion;35;37.0;120.080;7;otro;0;0;0;2
+018;Otro dolor a Medicina General;35;37.0;120.080;7;otro;0;0;0;1
