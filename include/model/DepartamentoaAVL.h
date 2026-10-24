@@ -10,7 +10,25 @@
 #include "../struct/ArbolAVL.h"
 using namespace std;
 
+/**
+ * Cantidad de departamentos del hospital.
+ *
+ * Es el tamano del arreglo de DepartamentoAVL que administra App.
+ */
+
 const int NUM_DEPARTAMENTOS = 8;
+
+/**
+ * Compara dos pacientes por su ID.
+ *
+ * Esta funcion se entrega a ArbolAVL<Paciente*> para que ordene a los
+ * pacientes por ID.
+ *
+ * @param a Primer paciente.
+ * @param b Segundo paciente.
+ * @return Un valor negativo si el ID de a es menor que el de b, 0 si son
+ *         iguales y un valor positivo si es mayor.
+ */
 
 inline int compararPacientesPorId(Paciente* a, Paciente* b) {
     return a->getId() - b->getId();
