@@ -57,6 +57,15 @@ Para modificar los pacientes o utilizar otro archivo:
 - **Tipo de dolor:** debe coincidir con una de las opciones permitidas.
 - **Presión arterial:** debe ingresarse los valores numericos en el formato `###.###`, respetando el punto como separador entre la presión sistólica y la diastólica.
 
+**Ejemplo:**
+   ```bash
+   001;Sebastian Miranda;23;36.5;120.080;6;cabeza;0;0;0;1
+   ```
+**Forma General:**
+   ```bash
+   id;nombre;edad;temperatura;presionArterial;dolor;tipoDolor;trauma;sintomasNeurologicos;requiereCirugia;diasHospitalizacion
+   ```
+
 ## 4. Compilación y ejecución
 
 Una vez creado el Codespace y configurado el archivo de pacientes, abre `Terminal` → `New Terminal` en VS Code.
