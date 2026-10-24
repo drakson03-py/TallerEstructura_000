@@ -69,34 +69,38 @@ Para modificar los pacientes o utilizar otro archivo:
 
 ## 4. Compilación y ejecución
 
-Una vez creado el Codespace y configurado el archivo de pacientes, abre `Terminal` → `New Terminal` en VS Code.
-1. Comprobar que la versión sea 4.0.2 o superior. Ejecutar:
-   ```bash
-   cmake --version
-   ```
-   Caso contrario, ejecutar:
-   ```bash
-   python3 -m pip install --user cmake==4.0.2
-   ```
-   ```
-   pip install --upgrade pip
-   ```
-3. Eliminar los archivos de compilación anteriores. Ejecutar:
-   ```bash
-   rm -rf build
-   ```
-4. Configurar el proyecto. Ejecutar:
-   ```bash
-   cmake -S . -B build
-   ```
-5. Compilar el proyecto. Ejecutar:
-    ```bash
-    cmake --build build -j2
-    ```
-6. Iniciar el programa desde la terminal. Ejecutar:
-    ```bash
-    ./build/TallerEstruct
-    ```
+
+## 4. Compilación y ejecución
+
+Una vez creado el Codespace y configurado el archivo de pacientes, abre `Terminal` → `New Terminal` en VS Code. Ejecuta los siguientes comandos desde la carpeta raíz del proyecto.
+
+**1. Instalar CMake 4.0.2.**
+Ejecutar:
+```bash
+python3 -m pip install --user --upgrade pip
+python3 -m pip install --user --force-reinstall cmake==4.0.2
+```
+**2. Eliminar los archivos de compilación anteriores.**
+Ejecutar:
+```bash
+rm -rf build
+```
+**3. Configurar el proyecto.**
+Ejecutar:
+```bash
+C="$(python3 -c 'import sysconfig; print(sysconfig.get_path("scripts", scheme="posix_user"))')/cmake"
+"$C" -S . -B build
+```
+**4. Compilar el proyecto.**
+Ejecutar:
+```bash
+"$C" --build build -j2
+```
+**5. Iniciar el programa desde la terminal.**
+Ejecutar:
+```bash
+./build/TallerEstruct
+```
 
 ## 5. Árbol de decisiones para la derivación de pacientes
 ### Manejo de datos inválidos o insuficientes
