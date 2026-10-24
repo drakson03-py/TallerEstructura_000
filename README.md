@@ -87,3 +87,116 @@ Una vez creado el Codespace y configurado el archivo de pacientes, abre `Termina
     ./build/TallerEstruct
     ```
     Iniciar el programa desde la terminal.
+
+## 5. Árbol de decisiones para la derivación de pacientes
+### Manejo de datos inválidos o insuficientes
+
+La clase `FilePaciente` valida el formato y la compatibilidad de los datos antes de permitir su procesamiento. Si una línea contiene campos vacíos obligatorios, tipos de datos incorrectos, valores fuera de las restricciones implementadas o identificadores duplicados, el archivo se rechaza y no se inicia el procesamiento de los pacientes.
+
+Si el archivo no puede abrirse, también se impide su carga. Cuando los datos son válidos, pero no cumplen criterios específicos de derivación, el árbol de decisiones aplica las reglas correspondientes y utiliza Medicina General como servicio predeterminado cuando ninguna condición anterior determina otra derivación.
+
+**Limitación:** actualmente, un archivo vacío se considera válido y algunos valores que podrían ser insuficientes o incoherentes se aceptan, ya que no todas las restricciones de rango están implementadas.
+
+**Arbol de decision:**
+```text
+¿Dolor >= 8?
+|-- Sí: Urgencias
+|   // Un dolor muy intenso puede indicar un problema grave,
+|   // por lo que se prioriza la atención de urgencia.
+|
+|-- No:
+    ¿PresionSistolica >= 180?
+    |-- Sí: Urgencias
+    |   // Una presión sistólica muy elevada puede poner en riesgo
+    |   // la salud del paciente y requiere atención prioritaria.
+    |
+    |-- No:
+        ¿PresionDiastolica >= 120?
+        |-- Sí: Urgencias
+        |   // Una presión diastólica muy elevada también puede
+        |   // representar un riesgo importante para el paciente.
+        |
+        |-- No:
+            ¿Temperatura < 35?
+            |-- Sí: Urgencias
+            |   // Una temperatura inferior a 35 °C puede indicar
+            |   // hipotermia, por lo que necesita atención prioritaria.
+            |
+            |-- No:
+                ¿Temperatura > 40?
+                |-- Sí: Urgencias
+                |   // Una temperatura superior a 40 °C puede ser
+                |   // peligrosa y requiere atención prioritaria.
+                |
+                |-- No:
+                    ¿Edad < 18?
+                    |-- Sí: Pediatría
+                    |   // Los menores de 18 años se derivan a Pediatría,
+                    |   // donde reciben atención adecuada a su edad.
+                    |
+                    |-- No:
+                        ¿RequiereCirugia == true?
+                        |-- Sí: Cirugía
+                        |   // Si el paciente necesita una intervención
+                        |   // quirúrgica, se deriva a Cirugía antes de
+                        |   // evaluar los demás servicios especializados.
+                        |
+                        |-- No:
+                            ¿TipoDolor == "pecho"?
+                            |-- Sí: Cardiología
+                            |   // El dolor de pecho puede estar relacionado
+                            |   // con problemas cardíacos.
+                            |
+                            |-- No:
+                                ¿TipoDolor == "cabeza"?
+                                |-- Sí:
+                                |   ¿SintomasNeurologicos == true?
+                                |   |-- Sí: Neurología
+                                |   |   // El dolor de cabeza acompañado de
+                                |   |   // síntomas neurológicos se deriva
+                                |   |   // a Neurología.
+                                |   |
+                                |   |-- No:
+                                |       ¿DiasHospitalizacion >= 2?
+                                |       |-- Sí: Hospitalización
+                                |       |   // Se deriva a Hospitalización
+                                |       |   // si se prevé una estadía de
+                                |       |   // dos días o más.
+                                |       |
+                                |       |-- No: Medicina General
+                                |           // Servicio predeterminado cuando
+                                |           // no se cumplen otros criterios.
+                                |
+                                |-- No:
+                                    ¿TipoDolor == "extremidad"?
+                                    |-- Sí:
+                                    |   ¿Trauma == true?
+                                    |   |-- Sí: Traumatología
+                                    |   |   // El dolor en una extremidad
+                                    |   |   // relacionado con un golpe o
+                                    |   |   // accidente se deriva a
+                                    |   |   // Traumatología.
+                                    |   |
+                                    |   |-- No:
+                                    |       ¿DiasHospitalizacion >= 2?
+                                    |       |-- Sí: Hospitalización
+                                    |       |   // Se deriva si se prevé una
+                                    |       |   // estadía de dos días o más.
+                                    |       |
+                                    |       |-- No: Medicina General
+                                    |           // Servicio predeterminado
+                                    |           // cuando no se cumplen
+                                    |           // otros criterios.
+                                    |
+                                    |-- No:
+                                        ¿DiasHospitalizacion >= 2?
+                                        |-- Sí: Hospitalización
+                                        |   // Si no se cumplen los criterios
+                                        |   // anteriores y se prevé una
+                                        |   // estadía de dos días o más.
+                                        |
+                                        |-- No: Medicina General
+                                            // Servicio por defecto cuando
+                                            // no se cumplen los criterios
+                                            // de las demás derivaciones.
+```
