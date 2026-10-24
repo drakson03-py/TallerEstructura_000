@@ -68,22 +68,24 @@ Una vez creado el Codespace y configurado el archivo de pacientes, abre `Termina
    ```bash
    python3 -m pip install --user cmake==4.0.2
    ```
-2. Ejecutar:
+   pip install --upgrade pip
+   ```
+3. Ejecutar:
    ```bash
    rm -rf build
    ```
    Eliminar los archivos de compilación anteriores.
-3. Ejecutar:
+4. Ejecutar:
    ```bash
    cmake -S . -B build
    ```
    Configurar el proyecto.
-4. Ejecutar:
+5. Ejecutar:
     ```bash
     cmake --build build -j2
     ```
     Compilar el proyecto.
-5. Ejecutar:
+6. Ejecutar:
     ```bash
     ./build/TallerEstruct
     ```
