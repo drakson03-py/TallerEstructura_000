@@ -34,6 +34,27 @@ Para modificar los pacientes o utilizar otro archivo:
 
 **Importante:** el archivo debe estar dentro de `data` y respetar el formato esperado por el programa. Si el formato no es válido, el programa se detendrá sin procesar los datos.
 
+### Campos del registro
+| Campo | Tipo de dato | Descripción y restricciones |
+|---|---|---|
+| `ID` | `int` | Identificador único del paciente. Solo números enteros positivos. |
+| `Edad` | `int` | Edad del paciente en años. Solo números enteros positivos. |
+| `Temperatura` | `float` | Temperatura corporal. Número positivo con `.` como separador decimal. |
+| `PresionArterial` | `string` | Presión arterial en formato `###.###`: presión sistólica antes del punto y presión diastólica después. |
+| `Dolor` | `int` | Intensidad del dolor, en una escala de 0 a 10. |
+| `TipoDolor` | `string` | Tipo de dolor: `pecho`, `cabeza`, `abdomen`, `extremidad` u `otro`. |
+| `Trauma` | `bool` | `0` representa `false` (no existe) y `1` representa `true` (existe). |
+| `SintomasNeurologicos` | `bool` | `0` representa `false` (no existen) y `1` representa `true` (existen). |
+| `RequiereCirugia` | `bool` | `0` representa `false` (no requiere) y `1` representa `true` (requiere). |
+| `DiasHospitalizacion` | `int` | Cantidad estimada de días de hospitalización. Solo números enteros positivos. |
+
+**Reglas de formato**
+- **Números enteros:** deben ingresarse sin decimales.
+- **Números decimales:** deben utilizar el punto (`.`) como separador decimal.
+- **Valores numéricos:** deben ser positivos.
+- **Campos booleanos:** deben representarse exclusivamente con `0` o `1`.
+- **Tipo de dolor:** debe coincidir con una de las opciones permitidas.
+- **Presión arterial:** debe ingresarse los valores numericos en el formato `###.###`, respetando el punto como separador entre la presión sistólica y la diastólica.
 
 ### 3. Compilación y ejecución
 
