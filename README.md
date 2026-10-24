@@ -3,21 +3,27 @@ Sebastián Miranda / 21410044-4 / SebastianMirandaMaldonado / ICCI
 
 ## Instrucciones de ejecución
 
-### 1. Configuración del archivo de pacientes
+1. Configuración del archivo de pacientes
 
-El archivo de pacientes se define en `main.cpp`, mediante la variable:
+El archivo de pacientes se encuentra en la carpeta data. Por defecto, el programa utiliza Pacientes.txt, definido en main.cpp mediante la variable:
 
-```cpp
 string archivo = "Pacientes.txt";
-```
 
-Para utilizar otro archivo, modifica su nombre. Por ejemplo:
+Para utilizar otro archivo, sigue estos pasos en GitHub Codespaces:
 
-```cpp
+En el explorador de archivos de VS Code, abre la carpeta data.
+
+Abre Pacientes.txt para modificar los pacientes existentes, o crea un archivo nuevo mediante clic derecho → New File.
+
+Si creas un archivo nuevo, asígnale un nombre, por ejemplo, datos.txt.
+
+Si utilizas otro archivo, abre main.cpp y cambia el nombre en la variable correspondiente:
+
 string archivo = "datos.txt";
-```
 
-El archivo seleccionado debe encontrarse dentro de la carpeta `data`.
+Guarda los cambios con Ctrl + S.
+
+El archivo debe estar dentro de data y respetar el formato de datos esperado por el programa.
 
 ### 2. Requisitos
 
