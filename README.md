@@ -71,14 +71,14 @@ Para modificar los pacientes o utilizar otro archivo:
 
 Una vez creado el Codespace y configurado el archivo de pacientes, abre `Terminal` → `New Terminal` en VS Code. Ejecuta los siguientes comandos desde la carpeta raíz del proyecto.
 
-###Revisar versión del CMake
+### Revisar versión del CMake
 Si la versión del cmake es 4.0.2 o superior, siga el flujo normal de ejecución y compilación. En caso contrario, siga el flujo alternativo.
 **Comprobar versión del cmake.**
  Ejecutar:
 ```bash
 cmake --version
 ```
-###FLujo Normal: Versión del cmake 4.0.2 o superior
+### Flujo Normal: Versión del cmake 4.0.2 o superior
 **1. Eliminar los archivos de compilación anteriores.**
 ```bash
 rm -rf build
@@ -95,7 +95,7 @@ cmake --build build -j2
 ```bash
 ./build/TallerEstruct
 ```
-###Flujo Alternativo: La versión es inferior a 4.0.2
+### Flujo Alternativo: La versión es inferior a 4.0.2
 **1. Instalar CMake 4.0.2.**
 Ejecutar:
 ```bash
