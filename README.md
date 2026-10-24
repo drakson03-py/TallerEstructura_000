@@ -56,6 +56,7 @@ Para modificar los pacientes o utilizar otro archivo:
 - **Campos booleanos:** deben representarse exclusivamente con `0` o `1`.
 - **Tipo de dolor:** debe coincidir con una de las opciones permitidas.
 - **Presión arterial:** debe ingresarse los valores numericos en el formato `###.###`, respetando el punto como separador entre la presión sistólica y la diastólica.
+- **Separación de campos:** se debe utilizar el caracter separador punto y coma ( `;`).
 
 **Ejemplo:**
    ```bash
@@ -69,37 +70,33 @@ Para modificar los pacientes o utilizar otro archivo:
 ## 4. Compilación y ejecución
 
 Una vez creado el Codespace y configurado el archivo de pacientes, abre `Terminal` → `New Terminal` en VS Code.
-1. Ejecutar:
+1. Comprobar que la versión sea 4.0.2 o superior. Ejecutar:
    ```bash
    cmake --version
    ```
-   Comprobar que la versión sea 4.0.2 o superior. Si no, ejecutar:
+   Caso contrario, ejecutar:
    ```bash
    python3 -m pip install --user cmake==4.0.2
    ```
    ```
    pip install --upgrade pip
    ```
-3. Ejecutar:
+3. Eliminar los archivos de compilación anteriores. Ejecutar:
    ```bash
    rm -rf build
    ```
-   Eliminar los archivos de compilación anteriores.
-4. Ejecutar:
+4. Configurar el proyecto. Ejecutar:
    ```bash
    cmake -S . -B build
    ```
-   Configurar el proyecto.
-5. Ejecutar:
+5. Compilar el proyecto. Ejecutar:
     ```bash
     cmake --build build -j2
     ```
-    Compilar el proyecto.
-6. Ejecutar:
+6. Iniciar el programa desde la terminal. Ejecutar:
     ```bash
     ./build/TallerEstruct
     ```
-    Iniciar el programa desde la terminal.
 
 ## 5. Árbol de decisiones para la derivación de pacientes
 ### Manejo de datos inválidos o insuficientes
