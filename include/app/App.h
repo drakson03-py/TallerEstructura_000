@@ -22,7 +22,6 @@ private:
     void mostrarResultadoBusqueda(const ResultadoBusqueda& resultado);
     void mostrarEstadoDepartamentos();
 
-
 public:
     App(const string& archivo, System* system);
     void run();

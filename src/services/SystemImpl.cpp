@@ -254,7 +254,9 @@ void SystemImpl::buildArbolDecision(ArbolDecision* arbol) {
     n15->setRight(hojaMedicinaGeneral3);
 
     // Asignar la raíz al árbol existente.
-    if (arbol != nullptr) {
+    if (arbol == nullptr) {
+        arbol = new ArbolDecision(n1);
+    }else {
         arbol->setRaiz(n1);
     }
 }

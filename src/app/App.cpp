@@ -4,7 +4,6 @@
 
 #include "../../include/app/App.h"
 #include "../../include/utils/Utils.h"
-#include "../../include/struct/BTNode.h"
 #include "../../include/model/ArbolDecision.h"
 
 App::App(const string& archivo, System* system)
