@@ -68,6 +68,7 @@ Una vez creado el Codespace y configurado el archivo de pacientes, abre `Termina
    ```bash
    python3 -m pip install --user cmake==4.0.2
    ```
+   ```
    pip install --upgrade pip
    ```
 3. Ejecutar:
