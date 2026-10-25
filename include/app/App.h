@@ -11,9 +11,9 @@ using namespace std;
 
 class App {
 private:
+
     string archivo;
     System* system;
-
     DepartamentoAVL departamentos[NUM_DEPARTAMENTOS];
     PrintPaciente print;
     void imprimirPacientesInline(NodoAVL<Paciente*>* nodo, bool& primero);
@@ -25,6 +25,5 @@ public:
     void run();
     ~App();
 };
-
 
 #endif //TALLERESTRUCT_APP_H

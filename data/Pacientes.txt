@@ -1,6 +1,6 @@
-001;Camila Rojas;35;37.0;120.080;8;otro;0;0;0;0
+001;Camila Rojas;34;37.0;120.080;8;otro;0;0;0;0
 002;Matias Gonzalez;42;37.0;180.080;7;otro;0;0;0;0
-003;Valentina Munoz;51;37.0;120.120;7;otro;0;0;0;0
+003;Valentina Mondaca;51;37.0;120.120;7;otro;0;0;0;0
 004;Diego Contreras;35;34.9;120.080;7;otro;0;0;0;0
 005;Antonia Silva;28;40.1;120.080;7;otro;0;0;0;0
 006;Benjamin Torres;17;37.0;120.080;7;otro;0;0;0;0

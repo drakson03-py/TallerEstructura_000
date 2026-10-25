@@ -5,7 +5,6 @@
 #include <sstream>
 #include <filesystem>
 #include "../../include/utils/FilePaciente.h"
-#include "../../include/struct/BTNode.h""
 
 FilePaciente::FilePaciente(const string& file):file(file){}
 
@@ -24,6 +23,7 @@ int FilePaciente::leerArchivo(List<Paciente*>* datos, string* error) {
     while (getline(archivo, linea)) {
         //Lee el archivo
         stringstream ss(linea);//Lee una linea
+
         if (!this->isLineaValida(ss)) {
             archivo.close();
             *error = "Linea ["+ to_string(nLine)+"] del archivo no valida: "+linea;
@@ -81,7 +81,7 @@ int FilePaciente::leerArchivo(List<Paciente*>* datos, string* error) {
     }
     archivo.close();
     if (aux != 0) {
-        for (int i = 0; i < datos->getSize(); i++) {
+        while (!datos->isEmpty()) {
             delete datos->get(0);
             datos->remove(0);
         }

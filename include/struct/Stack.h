@@ -1,73 +1,94 @@
 
-
 #ifndef TALLERESTRUCT_STACK_H
 #define TALLERESTRUCT_STACK_H
+
 #include "Node.h"
 
 /**
- * Implementación de una pila genérica de tipo LIFO
- * @tparam T
+ * @brief Implementación de una pila genérica de tipo LIFO.
+ *
+ * El último elemento insertado es el primero en eliminarse.
+ *
+ * @tparam T Tipo de dato que almacena la pila.
  */
 template <class T>
 class Stack {
 private:
     /**
-     * Puntero que almacena la dirección del ultimo nodo insertado
+     * @brief Puntero que almacena la dirección del último nodo insertado.
      */
     Node<T>* last;
+
 public:
     /**
-     * Constructor
+     * @brief Constructor.
+     * Inicializa una pila vacía.
      */
     Stack();
 
     /**
-     * Constructor copia de la pila
-     * @param s Pila que se quiere copiar
+     * @brief Constructor copia de la pila.
+     *
+     * Crea una copia de los nodos de la pila recibida.
+     *
+     * @param s Pila que se quiere copiar.
      */
     Stack(const Stack& s);
 
     /**
-     * Verifica si la pila está vaia
-     * @return true si la pila está vacía, false si tiene elementos
+     * @brief Verifica si la pila está vacía.
+     *
+     * @return true si la pila está vacía, false si tiene elementos.
      */
     bool empty();
 
     /**
-     * Inserta un elemento en la cabeza de la pila
-     * @param value Elemento que se quiere insertar
+     * @brief Inserta un elemento en la cabeza de la pila.
+     *
+     * @param value Elemento que se quiere insertar.
      */
     void push(T value);
 
     /**
-     * Elimina el elemento de la cabeza de la pila
+     * @brief Elimina el elemento de la cabeza de la pila.
      *
-     * El siguiente pasa a ser la nueva cabeza
+     * El siguiente elemento pasa a ser la nueva cabeza.
+     *
+     * @throw nullptr Si la pila está vacía.
      */
     void pop();
 
     /**
-     * Devuelve el elemento ubicado en la cabeza de la pila
-     * @return Elemento de tipo generico T
+     * @brief Devuelve el elemento ubicado en la cabeza de la pila.
+     *
+     * @return Elemento de tipo genérico T.
+     *
+     * @throw nullptr Si la pila está vacía.
      */
     T top();
 
     /**
-     * Elimina todos los elementos de la pila
+     * @brief Elimina todos los elementos de la pila.
+     *
+     * Libera los nodos almacenados y deja la pila vacía.
      */
     void clear();
 
     /**
-     * Devuelve la cantidad de elementos almacenados en la pila
-     * @return Cantidad de elementos
+     * @brief Devuelve la cantidad de elementos almacenados en la pila.
+     *
+     * @return Cantidad de elementos.
      */
     int size();
 
     /**
-     * Destructor
+     * @brief Destructor.
+     *
+     * Libera los nodos restantes de la pila.
      */
     ~Stack();
 };
 
 #include "Stack.tpp"
-#endif //TALLERESTRUCT_STACK_H
+
+#endif // TALLERESTRUCT_STACK_H

@@ -106,13 +106,17 @@ void App::run() {
             ResultadoBusqueda resultado = system->buscarPaciente(departamentos, query);
             mostrarResultadoBusqueda(resultado);
             cout << separador;
+        }else if (opcion != "4"){
+            cout<<"Error: Opcion no valida"<<endl;
+            cout<<separador;
         }
     }
     delete arbolDecision;
-    for (int i = 0; i < datos->getSize(); i++) {
+    while (!datos->isEmpty()) {
         delete datos->get(0);
         datos->remove(0);
     }
+    delete datos;
     delete fila;
     cout<<endl<<"Finalizando programa...";
 }
