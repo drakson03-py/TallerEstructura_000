@@ -33,10 +33,13 @@ const int NUM_DEPARTAMENTOS = 8;
 inline int compararPacientesPorId(Paciente* a, Paciente* b) {
     return a->getId() - b->getId();
 }
-
+/**
+ * @brief Asocia un departamento del hospital con su arbol AVL de pacientes.
+ *
+ */
 struct DepartamentoAVL {
-    string nombre;
-    ArbolAVL<Paciente*>* arbol;
+    string nombre;  /**< Nombre del departamento (servicio de atencion). */
+    ArbolAVL<Paciente*>* arbol; /**< Arbol AVL con los pacientes del departamento. */
 };
 
 #endif
